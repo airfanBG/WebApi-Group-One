@@ -9,6 +9,10 @@ namespace Models
 {
     public class Product:BaseModel
     {
+        public Product()
+        {
+            SalesOrders = new HashSet<SaleOrder>();
+        }
         public string ProductName { get; set; }
         public string Description { get; set; }
         public int CurrentQuantity { get; set; }

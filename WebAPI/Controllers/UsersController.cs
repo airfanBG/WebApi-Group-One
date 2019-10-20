@@ -13,7 +13,7 @@ using Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -30,11 +30,13 @@ namespace WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 var result = manager.Register(model);
+               
                 return Ok(result);
             }
             return BadRequest(ModelInfo.TurnModelToString(model));
         }
         [HttpDelete]
+        [Authorize]
         public IActionResult DeleteUser(int id)
         {
             var res = manager.DeleteUser(id);
@@ -45,7 +47,8 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
         [HttpPut]
-        public IActionResult EditUser(PersonModel model)
+        [Authorize]
+        public IActionResult EditUser([FromBody]PersonModel model)
         {
             var res = manager.EditUser(model);
             if (res.Length == 0)

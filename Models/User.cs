@@ -14,8 +14,10 @@ namespace Models
             UserRoles = new HashSet<UserRoles>();
         }
         [Required(ErrorMessage ="First name is required!")]
+        [MaxLength(20)]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Last name is required!")]
+        [MaxLength(20)]
         public string LastName { get; set; }
 
         [Required]        

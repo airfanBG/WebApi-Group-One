@@ -18,6 +18,9 @@
         public int BankAccount { get; set; }
         public int? PersonId { get; set; }
         public virtual User Person { get; set; }
+
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
         public virtual ICollection<EmployeeCustomers> EmployeeCustomers { get; set; }
     }
     

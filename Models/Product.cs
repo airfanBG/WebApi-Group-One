@@ -16,7 +16,10 @@
         public string ProductName { get; set; }
         [MaxLength(300)]
         public string Description { get; set; }
-        
+
+        [Required(ErrorMessage ="Price is required!")]
+        public decimal ProductPrice { get; set; }
+
         public int CurrentQuantity { get; set; }
         public virtual ICollection<SaleOrder> SalesOrders { get; set; }
     }

@@ -11,5 +11,6 @@ namespace Services.Common
         public const string InvalidAttempt = "Invalid attempt!";
         public const string EmailExists = "Email exists";
         public const string PasswordIncorrect = "Password incorrect";
+        public const string RoleExist = "Role exists!";
     }
 }

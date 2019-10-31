@@ -13,11 +13,12 @@ namespace Test
         static void Main(string[] args)
         {
             // NumberGenerator.EmployeeNumberGenerator();
-            UserRolesManager<UserRolesModel> um = new UserRolesManager<UserRolesModel>(new StoreDbContext());
+            //UserRolesManager um = new UserRolesManager(new StoreDbContext());
             //um.Add(new UserRolesModel() { AddRoleIds = new System.Collections.Generic.List<int>() { 6, 7 }, UserId = 1 });
-            um.GetAll(1);
-
-
+            //um.GetAll(1);
+            RoleManager rm = new RoleManager(new StoreDbContext());
+            var all=rm.GetAll();
+           
         }
       
     }

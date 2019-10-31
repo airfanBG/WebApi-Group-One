@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Services.Implementations
 {
-    public class UserRolesManager<T>:BaseManager<T> where T:UserRolesModel
+    public class UserRolesManager
     {
         private StoreDbContext context;
         public UserRolesManager(StoreDbContext dbContext)
@@ -20,20 +20,24 @@ namespace Services.Implementations
             this.context = dbContext;
            
         }
-        public override string Add(ICustomModel model)
+        public string Add(UserRolesModel model)
         {            
             try
             {
-                UserRolesModel roleModel = model as UserRolesModel;
+                UserRolesModel roleModel = model;
                 using (context)
                 {
-                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.UserId);
+                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.Id);
                   
                     List<Role> roles = context.Roles.Where(x => roleModel.AddRoleIds.Contains(x.Id)).ToList();
 
                     foreach (var role in roles)
                     {
-                        getUser.UserRoles.Add(new UserRoles() { RoleId = role.Id, UserId = getUser.Id, Role = role, User = getUser });
+                        if (getUser.UserRoles.FirstOrDefault(x=>x.RoleId==role.Id)==null)
+                        {
+                            getUser.UserRoles.Add(new UserRoles() { RoleId = role.Id, UserId = getUser.Id, Role = role, User = getUser });
+                        }
+                       
                     }
 
                     context.Users.Update(getUser);
@@ -49,16 +53,16 @@ namespace Services.Implementations
             }
         }
 
-        public override ICollection<ICustomModel> GetAll(int id)
+        public ICollection<UserRolesModel> GetAll(int userId)
         {
             try
             {
               
                 using (context)
                 {
-                    var getUser = context.UserRoles.Where(x => x.UserId == id).Include(x=>x.Role).ToList();
+                    var getUser = context.UserRoles.Where(x => x.UserId == userId).Include(x=>x.Role).ToList();
                     var result = MapperConfigurator.Mapper.Map<List<UserRolesModel>>(getUser);
-                    return new List<ICustomModel>();
+                    return new List<UserRolesModel>();
                 }
 
             }
@@ -69,14 +73,14 @@ namespace Services.Implementations
             }
         }
 
-        public override string Remove(ICustomModel model)
+        public string Remove(UserRolesModel model)
         {
             try
             {
-                UserRolesModel roleModel = model as UserRolesModel;
+                UserRolesModel roleModel = model;
                 using (context)
                 {
-                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.UserId);
+                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.Id);
                     List<UserRoles> roles = context.UserRoles.Where(x => roleModel.RemoveRolesIds.Contains(x.Id)).ToList();
                     foreach (var role in roles)
                     {
@@ -95,9 +99,5 @@ namespace Services.Implementations
             }
         }
 
-        public override string Update(ICustomModel model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

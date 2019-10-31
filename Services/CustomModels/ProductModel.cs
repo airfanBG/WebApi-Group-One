@@ -7,6 +7,7 @@ namespace Services.CustomModels
 {
     public class ProductModel : ICustomModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

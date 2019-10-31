@@ -47,14 +47,26 @@
             }
         }
 
-        public  string Remove(RoleModel model)
+        public string Remove(RoleModel model)
         {
-            throw new System.NotImplementedException();
+            using (context)
+            {
+                var role = MapperConfigurator.Mapper.Map<Role>(model);
+                context.Roles.Remove(role);
+                context.SaveChanges();
+                return "";
+            }
         }
 
         public string Update(RoleModel model)
         {
-            throw new System.NotImplementedException();
+            using (context)
+            {
+                var role = MapperConfigurator.Mapper.Map<Role>(model);
+                context.Roles.Update(role);
+                context.SaveChanges();
+                return "";
+            }
         }
     }
 }

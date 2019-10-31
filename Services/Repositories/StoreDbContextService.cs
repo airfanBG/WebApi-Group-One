@@ -59,6 +59,38 @@ namespace Services.Repositories
             }
         }
 
+        public IRepository<Role> Roles
+        {
+            get
+            {
+                return this.GetRepository<Role>();
+            }
+        }
+
+
+        public IRepository<UserRoles> UserRoles
+        {
+            get
+            {
+                return this.GetRepository<UserRoles>();
+            }
+        }
+
+        public IRepository<Department> Departments
+        {
+            get
+            {
+                return this.GetRepository<Department>();
+            }
+        }
+
+        public IRepository<UserToken> UserTokens
+        {
+            get
+            {
+                return this.GetRepository<UserToken>();
+            }
+        }
 
         public void Dispose()
         {
@@ -78,11 +110,12 @@ namespace Services.Repositories
         {
             return this.context.SaveChanges();
         }
+
         private IRepository<T> GetRepository<T>() where T : class, IBaseModel, new()
         {
             if (!this.repositories.ContainsKey(typeof(T)))
             {
-                var type = typeof(BaseRepository<T>);
+                var type = typeof(IRepository<T>);
 
                 this.repositories.Add(typeof(T), Activator.CreateInstance(type, this.context));
             }

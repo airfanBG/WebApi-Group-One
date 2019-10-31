@@ -18,9 +18,12 @@ namespace Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SaleOrder> SalesOrders { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
+        public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public StoreDbContext()
         {
 

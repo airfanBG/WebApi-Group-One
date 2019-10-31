@@ -1,26 +1,22 @@
-﻿using AutoMapper;
-using Data;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Models;
-using Models.BaseModels;
-using Models.Interfaces;
-using Services.Common;
-using Services.CustomModels;
-using Services.CustomModels.Interfaces;
-using Services.CustomModels.MapperSettings;
-using Services.Interfaces;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Services
+﻿namespace Services.Identity
 {
+    using Data;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
+    using Models;
+    using Services.Common;
+    using Services.CustomModels;
+    using Services.CustomModels.MapperSettings;
+    using Services.Interfaces;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Text;
+
     public class IdentityManager:IIdentityManager
     {
         private readonly TokenModel _tokenManagement;

@@ -22,16 +22,20 @@
         private readonly TokenModel _tokenManagement;
         private StoreDbContext dbContext;
         private User User;
+      
         public IdentityManager(StoreDbContext data, IOptions<TokenModel> tokenManagement)
         {
             this.dbContext = data;
             this._tokenManagement = tokenManagement.Value;
         }
-
-        public bool IsValidUser(TokenRequestModel model)
+        /// <summary>
+        /// Validate current user attempt to login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private bool IsValidUser(TokenRequestModel model)
         {
             var currentUser = this.dbContext.Users.SingleOrDefault(x => x.Email == model.Email);
-            if (currentUser == null) return false;
 
             if (currentUser != null)
             {
@@ -44,19 +48,32 @@
                 return false;
             }
         }
-        private string GenerateUserToken(TokenRequestModel request, bool newUser = false)
+        /// <summary>
+        /// Checks if user is already register. Default value false.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool isRegistered(string email)
+        {
+            var check = this.dbContext.Users.SingleOrDefault(x => x.Email ==email);
+            if (check!=null)
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// Generates user token after successful register/login
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private string GenerateUserToken(TokenRequestModel request)
         {
             string token = string.Empty;
 
-            if (newUser == false)
-            {
-                if (!this.IsValidUser(request)) return "";
-            }
-
             var claim = new List<Claim>()
             {
-                        new Claim(ClaimTypes.Email, request.Email),
-
+              new Claim(ClaimTypes.Email, request.Email)
             };
 
             for (int i = 0; i < User.UserRoles.Count; i++)
@@ -78,46 +95,62 @@
             token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return token;
         }
+        /// <summary>
+        /// Login user to the system
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public string LoginUser(TokenRequestModel model)
         {
-            var token = this.GenerateUserToken(model);
-            if (token.Length > 0)
+            if (this.IsValidUser(model))
             {
-                dbContext.UserTokens.Add(new UserToken() { Token = token, User = User });
-                dbContext.SaveChanges();
+                var token = this.GenerateUserToken(model);
+                if (token.Length > 0)
+                {
+                    dbContext.UserTokens.Add(new UserToken() { Token = token, User = User });
+                    dbContext.SaveChanges();
 
-                return token;
+                    return token;
+                }
             }
+           
             return "";
         }
+        /// <summary>
+        /// Adds new user to Db. If model is not valid return false
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public string Register(TokenRequestModel model)
         {
-            if (this.IsValidUser(model) == false)
+            if (this.isRegistered(model.Email) == false)
             {
                 User = new User();
-                //if (PasswordValidator(model.Password))
-                //{
-                    var token = GenerateUserToken(model, true);
+
+                    var token = GenerateUserToken(model);
  
                     User=MapperConfigurator.Mapper.Map<User>(model);
 
                     User.Password = HashPassword(model.Password);
 
                     var userToken = new UserToken() { Token = token, User = User };
-                    //var getRolesFromDb = this.dbContext.Roles.DbSet
-                    //    .Where(x => model.Roles.Any(y => x.Name.Contains(y.RoleName))).ToList();
+                    var getRolesFromDb =
+                    this.dbContext
+                    .Roles
+                    .Where(x => model.Roles.Select(z=>z.RoleName).Contains(x.RoleName)).ToList();
 
-                    //foreach (var role in getRolesFromDb)
-                    //{
-                    //    User.UserRoles.Add(new UserRoles() { Role = role });
-                    //}
+                foreach (var role in getRolesFromDb)
+                {
+                    User.UserRoles.Add(new UserRoles() { Role = role });
+                 
+                }
 
-                    this.dbContext.Users.Add(User);
+                this.dbContext.Users.Add(User);
                     this.dbContext.UserTokens.Add(userToken);
                     this.dbContext.SaveChanges();
 
                     return token;
-               // }
+             
             }
             return "";
         }
@@ -209,10 +242,7 @@
         {
             var res = StructuralComparisons.StructuralEqualityComparer.Equals(buffer3, buffer4);
             return res;
-        }
-
-
-        
+        }       
 
         private string HashPassword(string password)
         {

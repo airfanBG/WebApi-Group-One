@@ -8,7 +8,7 @@ namespace Services.Interfaces
 {
     public interface IIdentityManager
     {
-        bool IsValidUser(TokenRequestModel model);
+      
         string LoginUser(TokenRequestModel model);
 
         string Register(TokenRequestModel model);

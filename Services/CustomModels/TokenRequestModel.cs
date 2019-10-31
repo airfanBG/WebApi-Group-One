@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Models;
+using Newtonsoft.Json;
 using Services.Common;
 using Services.CustomModels.Interfaces;
 using System;
@@ -27,6 +28,7 @@ namespace Services.CustomModels
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-     
+        public ICollection<Role> Roles { get; set; }
+
     }
 }

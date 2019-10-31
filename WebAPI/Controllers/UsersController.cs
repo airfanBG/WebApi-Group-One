@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Services;
-using Services.Common;
-using Services.CustomModels;
-using Services.CustomModels.Interfaces;
-using Services.Interfaces;
-
-namespace WebAPI.Controllers
+﻿namespace WebAPI.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Common;
+    using Services.CustomModels;
+    using Services.Interfaces;
+
     [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,8 +23,11 @@ namespace WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 var result = manager.Register(model);
-               
-                return Ok(result);
+                if (result.Length>0)
+                {
+                    return Ok(result);
+                }
+                return BadRequest("Register attempt is failed. Check email and password!");
             }
             return BadRequest(ModelInfo.TurnModelToString(model));
         }

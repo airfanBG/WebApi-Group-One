@@ -25,7 +25,7 @@
                 {
                     var getUser = context.UserRoles.Where(x => x.UserId == userId).Include(x=>x.Role).ToList();
                     var result = MapperConfigurator.Mapper.Map<List<UserRolesModel>>(getUser);
-                    return new List<UserRolesModel>();
+                    return result;
                 }
 
             }

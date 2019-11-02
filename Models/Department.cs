@@ -9,11 +9,11 @@
     {
         public Department()
         {
-            Users = new HashSet<User>();
+            Employees = new HashSet<Employee>();
         }
         [Required]
         [MaxLength(20)]
         public string DepartmentName { get; set; }
-        public ICollection<User> Users { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

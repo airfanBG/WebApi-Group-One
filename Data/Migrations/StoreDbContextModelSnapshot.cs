@@ -43,16 +43,11 @@ namespace Data.Migrations
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SaleOrderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId")
                         .IsUnique()
                         .HasFilter("[PersonId] IS NOT NULL");
-
-                    b.HasIndex("SaleOrderId");
 
                     b.ToTable("Customers");
                 });
@@ -230,6 +225,9 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfSale")
                         .HasColumnType("datetime2");
 
@@ -251,6 +249,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("ProductId");
 
                     b.ToTable("SalesOrders");
@@ -268,9 +268,6 @@ namespace Data.Migrations
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -295,8 +292,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Users");
                 });
@@ -369,16 +364,12 @@ namespace Data.Migrations
                     b.HasOne("Models.User", "Person")
                         .WithOne("Customer")
                         .HasForeignKey("Models.Customer", "PersonId");
-
-                    b.HasOne("Models.SaleOrder", "SaleOrder")
-                        .WithMany("Customers")
-                        .HasForeignKey("SaleOrderId");
                 });
 
             modelBuilder.Entity("Models.Employee", b =>
                 {
                     b.HasOne("Models.Department", "Department")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -405,18 +396,17 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.SaleOrder", b =>
                 {
+                    b.HasOne("Models.Customer", "Customer")
+                        .WithMany("SaleOrders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Models.Product", "Product")
                         .WithMany("SalesOrders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.User", b =>
-                {
-                    b.HasOne("Models.Department", null)
-                        .WithMany("Users")
-                        .HasForeignKey("DepartmentId");
                 });
 
             modelBuilder.Entity("Models.UserRoles", b =>

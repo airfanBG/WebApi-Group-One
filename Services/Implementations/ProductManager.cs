@@ -5,11 +5,22 @@ using Services.CustomModels;
 using Services.CustomModels.MapperSettings;
 using Services.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.Implementations
 {
     public class ProductManager : BaseManager<ProductModel>
     {
+        public List<ProductModel> AllProducts
+        {
+            get
+            {
+                var res = MapperConfigurator.Mapper.Map<List<ProductModel>>(this.context.Products.ToList());
+
+                return res;
+            }
+        }
         public ProductManager():base(new StoreDbContext())
         {
            

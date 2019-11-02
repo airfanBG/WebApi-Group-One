@@ -12,6 +12,7 @@ namespace WebAPI
     using Microsoft.IdentityModel.Tokens;
     using Services.CustomModels;
     using Services.Identity;
+    using Services.Implementations;
     using Services.Interfaces;
     public class Startup
     {
@@ -53,6 +54,7 @@ namespace WebAPI
 
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager,IdentityManager>();
+            services.AddScoped<ProductManager>();
 
         }
 
@@ -73,6 +75,8 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
+
+           
         }
     }
 }

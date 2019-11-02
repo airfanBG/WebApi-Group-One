@@ -1,58 +1,22 @@
-﻿using Data;
-using Microsoft.EntityFrameworkCore;
-using Models;
-using Services.CustomModels;
-using Services.CustomModels.Interfaces;
-using Services.CustomModels.MapperSettings;
-using Services.Repositories.RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Services.Implementations
+﻿namespace Services.Implementations
 {
-    public class UserRolesManager
+    using Data;
+    using Microsoft.EntityFrameworkCore;
+    using Models;
+    using Services.CustomModels;
+    using Services.CustomModels.MapperSettings;
+    using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class UserRolesManager:BaseManager<UserRolesModel>
     {
-        private StoreDbContext context;
-        public UserRolesManager(StoreDbContext dbContext)
+        public List<UserRolesModel> AllUserRoles { get; }
+        public UserRolesManager():base(new StoreDbContext())
         {
-            this.context = dbContext;
-           
         }
-        public string Add(UserRolesModel model)
-        {            
-            try
-            {
-                UserRolesModel roleModel = model;
-                using (context)
-                {
-                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.Id);
-                  
-                    List<Role> roles = context.Roles.Where(x => roleModel.AddRoleIds.Contains(x.Id)).ToList();
-
-                    foreach (var role in roles)
-                    {
-                        if (getUser.UserRoles.FirstOrDefault(x=>x.RoleId==role.Id)==null)
-                        {
-                            getUser.UserRoles.Add(new UserRoles() { RoleId = role.Id, UserId = getUser.Id, Role = role, User = getUser });
-                        }
-                       
-                    }
-
-                    context.Users.Update(getUser);
-                    context.SaveChanges();
-                    return "";
-                }
-
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message);
-            }
-        }
-
+       
         public ICollection<UserRolesModel> GetAll(int userId)
         {
             try
@@ -73,15 +37,70 @@ namespace Services.Implementations
             }
         }
 
-        public string Remove(UserRolesModel model)
+
+        public override string Add(UserRolesModel model)
         {
             try
             {
-                UserRolesModel roleModel = model;
                 using (context)
                 {
-                    User getUser = context.Users.SingleOrDefault(x => x.Id == roleModel.Id);
-                    List<UserRoles> roles = context.UserRoles.Where(x => roleModel.RemoveRolesIds.Contains(x.Id)).ToList();
+                    User getUser = context.Users.SingleOrDefault(x => x.Id == model.Id);
+
+                    List<Role> roles = context.Roles.Where(x => model.RoleIds.Contains(x.Id)).ToList();
+
+                    foreach (var role in roles)
+                    {
+                        if (getUser.UserRoles.FirstOrDefault(x => x.RoleId == role.Id) == null)
+                        {
+                            getUser.UserRoles.Add(new UserRoles() { RoleId = role.Id, UserId = getUser.Id, Role = role, User = getUser });
+                        }
+
+                    }
+
+                    context.Users.Update(getUser);
+                    context.SaveChanges();
+                    return "";
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public override string Update(UserRolesModel model)
+        {
+            using (context)
+            { 
+                User user = this.context.Users.Include(x => x.UserRoles).Single(x => x.Id == model.UserId);
+
+                List<int> newRoles = this.context.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).Where(x => model.RoleIds.Contains(x)).ToList();
+
+                user.UserRoles.Clear();
+
+                List<Role> getRoles = this.context.Roles.Where(x => newRoles.Contains(x.Id)).ToList();
+
+                foreach (var role in getRoles)
+                {
+                    user.UserRoles.Add(new UserRoles() { Role = role });
+                }
+                this.context.SaveChanges();
+
+
+            }
+            return "";
+        }
+
+        public override string Delete(UserRolesModel model)
+        {
+            try
+            {
+                using (context)
+                {
+                    User getUser = context.Users.SingleOrDefault(x => x.Id == model.Id);
+                    List<UserRoles> roles = context.UserRoles.Where(x => !model.RoleIds.Contains(x.Id)).ToList();
                     foreach (var role in roles)
                     {
                         getUser.UserRoles.Remove(role);
@@ -98,6 +117,5 @@ namespace Services.Implementations
                 throw new Exception(e.Message);
             }
         }
-
     }
 }

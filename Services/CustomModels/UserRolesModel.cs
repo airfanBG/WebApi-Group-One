@@ -7,8 +7,8 @@
         public int Id { get; set; }
         public int UserId { get; set; }
         public string RoleName { get; set; }
-        public List<int> AddRoleIds { get; set; }
-        public List<int> RemoveRolesIds { get; set; }
+        public List<int> RoleIds { get; set; }
+        
         public List<RoleModel> Roles { get; set; }
     }
 }

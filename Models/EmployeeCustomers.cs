@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Models.BaseModels;
 
 namespace Models
 {
-    public class EmployeeCustomers
+    public class EmployeeCustomers: BaseModel
     {
-        public int Id { get; set; }
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         public int CustomerId { get; set; }

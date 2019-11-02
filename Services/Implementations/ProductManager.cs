@@ -1,0 +1,82 @@
+﻿using Data;
+using Models;
+using Services.Common;
+using Services.CustomModels;
+using Services.CustomModels.MapperSettings;
+using Services.Interfaces;
+using System;
+
+namespace Services.Implementations
+{
+    public class ProductManager : BaseManager<ProductModel>
+    {
+        public ProductManager():base(new StoreDbContext())
+        {
+           
+        }
+        public override string Add(ProductModel model)
+        {
+            try
+            {
+                using (context)
+                {
+                    Product product = MapperConfigurator.Mapper.Map<Product>(model);
+                    this.context.Products.Add(product);
+                    this.context.SaveChanges();
+                    return "";
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public override string Delete(ProductModel model)
+        {
+            try
+            {
+                using (context)
+                {
+                    Product product = MapperConfigurator.Mapper.Map<Product>(model);
+                    this.context.Products.Remove(product);
+                    int res=this.context.SaveChanges();
+                    if (res==1)
+                    {
+                        return "";
+                    }
+                    return string.Format($"{Messages.DeleteFails} {model.Name}.");
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public override string Update(ProductModel model)
+        {
+            try
+            {
+                using (context)
+                {
+                    Product product = MapperConfigurator.Mapper.Map<Product>(model);
+                    this.context.Products.Update(product);
+                    int res = this.context.SaveChanges();
+                    if (res == 1)
+                    {
+                        return "";
+                    }
+                    return string.Format($"{Messages.UpdateFails} {model.Name}.");
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+    }
+}

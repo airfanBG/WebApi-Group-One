@@ -24,7 +24,14 @@
                 using (context)
                 {
                     var getUser = context.UserRoles.Where(x => x.UserId == userId).Include(x=>x.Role).ToList();
-                    var result = MapperConfigurator.Mapper.Map<List<UserRolesModel>>(getUser);
+                    
+                    var result = getUser.Select(x => new UserRolesModel()
+                    {
+                        Roles=new List<RoleModel>() { new RoleModel() { RoleName=x.Role.RoleName, Id=x.Role.Id} },
+                        UserId=x.UserId
+                    }).ToList() ;
+
+                    
                     return result;
                 }
 
@@ -35,7 +42,7 @@
                 throw new Exception(e.Message);
             }
         }
-
+       
 
         public override string Add(UserRolesModel model)
         {

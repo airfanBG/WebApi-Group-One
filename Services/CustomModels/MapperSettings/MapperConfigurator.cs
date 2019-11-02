@@ -33,7 +33,7 @@ namespace Services.CustomModels.MapperSettings
             CreateMap<ProductModel, Product>().ForMember(d=>d.ProductName, opt=>opt.MapFrom(x=>x.Name));
             CreateMap<Product, ProductModel>().ForMember(d => d.Name, opt => opt.MapFrom(x => x.ProductName)); ;
             //CreateMap<ICustomModel, RoleModel>();
-            CreateMap<UserRoles, UserRolesModel>().ForMember(x => x.Roles, o => o.Ignore());
+            CreateMap<UserRoles, UserRolesModel>();
         }
     }
 }

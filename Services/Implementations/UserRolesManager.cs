@@ -12,7 +12,6 @@
 
     public class UserRolesManager:BaseManager<UserRolesModel>
     {
-        public List<UserRolesModel> AllUserRoles { get; }
         public UserRolesManager():base(new StoreDbContext())
         {
         }

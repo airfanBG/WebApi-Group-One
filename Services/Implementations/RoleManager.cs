@@ -8,17 +8,24 @@
     using Services.CustomModels;
     using Services.CustomModels.Interfaces;
     using Services.CustomModels.MapperSettings;
+    using Services.Interfaces;
 
-    public class RoleManager
+    public class RoleManager:BaseManager<RoleModel>
     {
-        private StoreDbContext context;
-        public RoleManager(StoreDbContext dbContext)
+        public RoleManager():base(new StoreDbContext())
         {
-            this.context = dbContext;
 
         }
+        public List<RoleModel> AllRoles
+        {
+            get
+            {
+                var roles= this.context.Roles.ToList();
 
-        public string Add(RoleModel model)
+                return MapperConfigurator.Mapper.Map<List<RoleModel>>(roles);
+            }
+        }
+        public override string Add(RoleModel model)
         {
             RoleModel roleModel = model;
             using (context)
@@ -36,18 +43,8 @@
             }
         }
 
-        public ICollection<RoleModel> GetAll()
-        {
-            using (context)
-            {
-                List<Role> list = context.Roles.ToList();
-                List<RoleModel> mapped = MapperConfigurator.Mapper.Map<List<RoleModel>>(list);
-
-                return mapped;
-            }
-        }
-
-        public string Remove(RoleModel model)
+        
+        public override string Delete(RoleModel model)
         {
             using (context)
             {
@@ -58,7 +55,7 @@
             }
         }
 
-        public string Update(RoleModel model)
+        public override string Update(RoleModel model)
         {
             using (context)
             {

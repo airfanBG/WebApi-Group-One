@@ -30,7 +30,8 @@ namespace Services.CustomModels.MapperSettings
             CreateMap<ICustomModel, User>();
             CreateMap<TokenRequestModel, User>();
             CreateMap<Role, RoleModel>();
-            CreateMap<ICustomModel, RoleModel>();
+
+            //CreateMap<ICustomModel, RoleModel>();
             CreateMap<UserRoles, UserRolesModel>().ForMember(x => x.Roles, o => o.Ignore());
         }
     }

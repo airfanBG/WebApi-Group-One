@@ -34,6 +34,7 @@ namespace Services.CustomModels.MapperSettings
             CreateMap<Product, ProductModel>().ForMember(d => d.Name, opt => opt.MapFrom(x => x.ProductName)); ;
             //CreateMap<ICustomModel, RoleModel>();
             CreateMap<UserRoles, UserRolesModel>();
+            CreateMap<Employee, EmployeeModel>();
         }
     }
 }

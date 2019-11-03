@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Services.Interfaces
 {
+
     public abstract class BaseManager<T> where T: ICustomModel
     {
         protected StoreDbContext context;

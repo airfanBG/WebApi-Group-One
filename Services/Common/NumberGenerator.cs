@@ -10,10 +10,9 @@ namespace Services.Common
         private static string wordKey = "AWS";
         private static string lastEmployeeNumber = "";
 
-        public static string EmployeeNumberGenerator()
+        public static string EmployeeNumberGenerator(StoreDbContext db)
         {                     
-            using (StoreDbContext db=new StoreDbContext())
-            {
+            
                 var getLastEmpNumber = db.Employees.Select(x => x.EmployeeNumber).OrderByDescending(x=>x).FirstOrDefault();
                 if (getLastEmpNumber==null)
                 {
@@ -23,7 +22,7 @@ namespace Services.Common
                 lastEmployeeNumber = regex.Match(lastEmployeeNumber).Value;
 
                 return EmployeeGenerator();
-            }
+            
         }
         private static string EmployeeGenerator()
         {

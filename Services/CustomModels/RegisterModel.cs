@@ -1,14 +1,10 @@
-﻿using Models;
-using Newtonsoft.Json;
-using Services.Common;
-using Services.CustomModels.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace Services.CustomModels
+﻿namespace Services.CustomModels
 {
+    using Models;
+    using Newtonsoft.Json;
+    using Services.Common;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     public class RegisterModel
     {
         [Required]
@@ -18,11 +14,11 @@ namespace Services.CustomModels
 
         [Required]
         [JsonProperty("password")]
-        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]       
+        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]
         public string Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Passwords do not match!")]
-        
+
         public string ConfirmPassword { get; set; }
 
         public string FirstName { get; set; }

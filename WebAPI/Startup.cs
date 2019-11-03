@@ -1,7 +1,5 @@
 namespace WebAPI
 {
-    using System;
-    using System.Text;
     using Data;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -14,6 +12,8 @@ namespace WebAPI
     using Services.Identity;
     using Services.Implementations;
     using Services.Interfaces;
+    using System;
+    using System.Text;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,7 +30,7 @@ namespace WebAPI
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddAntiforgery();
-            
+
 
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));
             var token = Configuration.GetSection("tokenManagement").Get<TokenModel>();
@@ -54,9 +54,9 @@ namespace WebAPI
                     };
                 });
 
-           
+
             services.AddScoped<StoreDbContext, StoreDbContext>();
-            services.AddTransient<IIdentityManager,IdentityManager>();
+            services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
 
         }
@@ -68,18 +68,18 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-           
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-           
+
         }
     }
 }

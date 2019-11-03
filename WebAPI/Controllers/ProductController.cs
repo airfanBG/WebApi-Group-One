@@ -20,16 +20,16 @@
         public IActionResult AllProducts()
         {
             var all = manager.AllProducts;
-       
+
             return Ok(all);
         }
 
         [HttpPost]
         public IActionResult AddProduct(ProductModel model)
         {
-           
-            var res=manager.Add(model);
-            if (res.Length==0)
+
+            var res = manager.Add(model);
+            if (res.Length == 0)
             {
                 return Created("api/product", model);
             }

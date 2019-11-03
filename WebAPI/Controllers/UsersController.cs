@@ -16,14 +16,14 @@
         {
             this.manager = manager;
         }
-       
+
         [HttpPost]
         public IActionResult RegisterUser([FromBody] RegisterModel model)
         {
             if (ModelState.IsValid)
             {
                 var result = manager.Register(model);
-                if (result.Length>0)
+                if (result.Length > 0)
                 {
                     return Ok(result);
                 }

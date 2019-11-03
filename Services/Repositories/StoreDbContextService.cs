@@ -5,7 +5,6 @@ using Models.Interfaces;
 using Services.Repositories.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Repositories
 {
@@ -49,7 +48,7 @@ namespace Services.Repositories
             }
         }
 
-      
+
 
         public IRepository<SaleOrder> SaleOrders
         {

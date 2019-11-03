@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Models.Interfaces;
 using Services.Repositories.RepositoryInterfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Services.Repositories
 {

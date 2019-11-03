@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -12,8 +11,8 @@ namespace Services.Common
         private bool upperCase;
         private bool lowerCase = false;
         private bool specialChar = false;
-        
-        public PasswordAttribute(int length=8,bool upperCase=false,bool lowerCase=false, bool specialCharacter=false)
+
+        public PasswordAttribute(int length = 8, bool upperCase = false, bool lowerCase = false, bool specialCharacter = false)
         {
             this.length = length;
             this.upperCase = upperCase;
@@ -25,10 +24,10 @@ namespace Services.Common
             var password = value as string;
             string specialCh = @"%!@#$%^&*()?/>.<,:;'\|}]{[_~`+=-" + "\"";
             char[] specialChArray = specialCh.ToCharArray();
-           
 
-            if (value==null || value.ToString().Length<length)
-            {                
+
+            if (value == null || value.ToString().Length < length)
+            {
                 return false;
             }
 
@@ -37,7 +36,7 @@ namespace Services.Common
             {
                 return false;
             }
-            else if (specialChar==true&&checkSpecial==false)
+            else if (specialChar == true && checkSpecial == false)
             {
                 return false;
             }
@@ -45,9 +44,9 @@ namespace Services.Common
             {
                 return true;
             }
-           
+
         }
-        
+
 
     }
 

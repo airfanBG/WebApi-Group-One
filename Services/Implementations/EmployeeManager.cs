@@ -1,15 +1,14 @@
-﻿using Models;
-using Services.Common;
-using Services.CustomModels;
-using Services.CustomModels.MapperSettings;
-using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Services.Implementations
+﻿namespace Services.Implementations
 {
+    using Models;
+    using Services.Common;
+    using Services.CustomModels;
+    using Services.CustomModels.MapperSettings;
+    using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class EmployeeManager : BaseManager<EmployeeModel>
     {
         public List<EmployeeModel> AllEmployees
@@ -20,7 +19,7 @@ namespace Services.Implementations
                 return models;
             }
         }
-        public EmployeeManager():base(new Data.StoreDbContext())
+        public EmployeeManager() : base(new Data.StoreDbContext())
         {
 
         }

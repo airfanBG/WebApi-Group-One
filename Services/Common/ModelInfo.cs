@@ -1,6 +1,5 @@
 ﻿using Services.CustomModels;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
@@ -16,13 +15,13 @@ namespace Services.Common
             foreach (PropertyInfo property in getProperties)
             {
                 var propValue = property.GetValue(model, null);
-                if (property.Name==Enum.GetName(typeof(ModelProperties),ModelProperties.Password)|| property.Name == Enum.GetName(typeof(ModelProperties), ModelProperties.ConfirmPassword))
+                if (property.Name == Enum.GetName(typeof(ModelProperties), ModelProperties.Password) || property.Name == Enum.GetName(typeof(ModelProperties), ModelProperties.ConfirmPassword))
                 {
                     continue;
                 }
                 sb.Append(string.Format($"{property.Name}: {propValue} "));
             }
-            return sb.ToString() ;
+            return sb.ToString();
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Repositories.RepositoryInterfaces
 {
@@ -17,7 +14,7 @@ namespace Services.Repositories.RepositoryInterfaces
         public IRepository<Department> Departments { get; }
         public IRepository<UserToken> UserTokens { get; }
         public IRepository<SaleOrder> SaleOrders { get; }
-       
+
         void Dispose();
 
         int SaveChanges();

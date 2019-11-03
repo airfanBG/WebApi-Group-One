@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models.Interfaces
+﻿namespace Models.Interfaces
 {
+    using System;
+
     public interface IAuditInfo
     {
         DateTime CreatedAt { get; set; }

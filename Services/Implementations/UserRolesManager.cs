@@ -4,34 +4,33 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Services.CustomModels;
-    using Services.CustomModels.MapperSettings;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class UserRolesManager:BaseManager<UserRolesModel>
+    public class UserRolesManager : BaseManager<UserRolesModel>
     {
-        public UserRolesManager():base(new StoreDbContext())
+        public UserRolesManager() : base(new StoreDbContext())
         {
         }
-       
+
         public ICollection<UserRolesModel> GetAll(int userId)
         {
             try
             {
-              
+
                 using (context)
                 {
-                    var getUser = context.UserRoles.Where(x => x.UserId == userId).Include(x=>x.Role).ToList();
-                    
+                    var getUser = context.UserRoles.Where(x => x.UserId == userId).Include(x => x.Role).ToList();
+
                     var result = getUser.Select(x => new UserRolesModel()
                     {
-                        Roles=new List<RoleModel>() { new RoleModel() { RoleName=x.Role.RoleName, Id=x.Role.Id} },
-                        UserId=x.UserId
-                    }).ToList() ;
+                        Roles = new List<RoleModel>() { new RoleModel() { RoleName = x.Role.RoleName, Id = x.Role.Id } },
+                        UserId = x.UserId
+                    }).ToList();
 
-                    
+
                     return result;
                 }
 
@@ -42,7 +41,7 @@
                 throw new Exception(e.Message);
             }
         }
-       
+
 
         public override string Add(UserRolesModel model)
         {
@@ -79,7 +78,7 @@
         public override string Update(UserRolesModel model)
         {
             using (context)
-            { 
+            {
                 User user = this.context.Users.Include(x => x.UserRoles).Single(x => x.Id == model.UserId);
 
                 List<int> newRoles = this.context.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).Where(x => model.RoleIds.Contains(x)).ToList();

@@ -1,18 +1,17 @@
 ﻿namespace Services.Implementations
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data;
     using Models;
     using Services.Common;
     using Services.CustomModels;
-    using Services.CustomModels.Interfaces;
     using Services.CustomModels.MapperSettings;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    public class RoleManager:BaseManager<RoleModel>
+    public class RoleManager : BaseManager<RoleModel>
     {
-        public RoleManager():base(new StoreDbContext())
+        public RoleManager() : base(new StoreDbContext())
         {
 
         }
@@ -20,7 +19,7 @@
         {
             get
             {
-                var roles= this.context.Roles.ToList();
+                var roles = this.context.Roles.ToList();
 
                 return MapperConfigurator.Mapper.Map<List<RoleModel>>(roles);
             }
@@ -30,8 +29,8 @@
             RoleModel roleModel = model;
             using (context)
             {
-                Role role=context.Roles.FirstOrDefault(x => x.RoleName == roleModel.RoleName);
-                if (role==null)
+                Role role = context.Roles.FirstOrDefault(x => x.RoleName == roleModel.RoleName);
+                if (role == null)
                 {
                     Role newRole = new Role();
                     newRole.RoleName = roleModel.RoleName;
@@ -43,7 +42,7 @@
             }
         }
 
-        
+
         public override string Delete(RoleModel model)
         {
             using (context)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace Services.CustomModels
+﻿namespace Services.CustomModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class LoginModel
     {
         [Required]

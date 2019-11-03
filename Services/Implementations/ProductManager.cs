@@ -1,15 +1,15 @@
-﻿using Data;
-using Models;
-using Services.Common;
-using Services.CustomModels;
-using Services.CustomModels.MapperSettings;
-using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Services.Implementations
+﻿namespace Services.Implementations
 {
+    using Data;
+    using Models;
+    using Services.Common;
+    using Services.CustomModels;
+    using Services.CustomModels.MapperSettings;
+    using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class ProductManager : BaseManager<ProductModel>
     {
         public List<ProductModel> AllProducts
@@ -21,9 +21,9 @@ namespace Services.Implementations
                 return res;
             }
         }
-        public ProductManager():base(new StoreDbContext())
+        public ProductManager() : base(new StoreDbContext())
         {
-           
+
         }
         public override string Add(ProductModel model)
         {
@@ -52,8 +52,8 @@ namespace Services.Implementations
                 {
                     Product product = MapperConfigurator.Mapper.Map<Product>(model);
                     this.context.Products.Remove(product);
-                    int res=this.context.SaveChanges();
-                    if (res==1)
+                    int res = this.context.SaveChanges();
+                    if (res == 1)
                     {
                         return "";
                     }

@@ -1,11 +1,8 @@
-﻿using Models.BaseModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models
+﻿namespace Models
 {
-    public class UserToken:BaseModel
+    using Models.BaseModels;
+
+    public class UserToken : BaseModel
     {
         public string Name { get; set; }
         public string Token { get; set; }

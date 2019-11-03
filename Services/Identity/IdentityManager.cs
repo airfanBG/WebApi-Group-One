@@ -17,12 +17,12 @@
     using System.Security.Cryptography;
     using System.Text;
 
-    public class IdentityManager:IIdentityManager
+    public class IdentityManager : IIdentityManager
     {
         private readonly TokenModel _tokenManagement;
         private StoreDbContext dbContext;
         private User User;
-      
+
         public IdentityManager(StoreDbContext data, IOptions<TokenModel> tokenManagement)
         {
             this.dbContext = data;
@@ -55,8 +55,8 @@
         /// <returns></returns>
         private bool isRegistered(string email)
         {
-            var check = this.dbContext.Users.SingleOrDefault(x => x.Email ==email);
-            if (check!=null)
+            var check = this.dbContext.Users.SingleOrDefault(x => x.Email == email);
+            if (check != null)
             {
                 return true;
             }
@@ -104,7 +104,7 @@
         {
             if (this.IsValidUser(model))
             {
-                var token = this.GenerateUserToken(new RequestTokenModel() { Email=model.Email});
+                var token = this.GenerateUserToken(new RequestTokenModel() { Email = model.Email });
                 if (token.Length > 0)
                 {
                     dbContext.UserTokens.Add(new UserToken() { Token = token, User = User });
@@ -113,7 +113,7 @@
                     return token;
                 }
             }
-           
+
             return "";
         }
         /// <summary>
@@ -127,30 +127,30 @@
             {
                 User = new User();
 
-                    var token = GenerateUserToken(new RequestTokenModel() { Email=model.Email});
- 
-                    User=MapperConfigurator.Mapper.Map<User>(model);
+                var token = GenerateUserToken(new RequestTokenModel() { Email = model.Email });
 
-                    User.Password = HashPassword(model.Password);
+                User = MapperConfigurator.Mapper.Map<User>(model);
 
-                    var userToken = new UserToken() { Token = token, User = User };
-                    var getRolesFromDb =
-                    this.dbContext
-                    .Roles
-                    .Where(x => model.Roles.Select(z=>z.RoleName).Contains(x.RoleName)).ToList();
+                User.Password = HashPassword(model.Password);
+
+                var userToken = new UserToken() { Token = token, User = User };
+                var getRolesFromDb =
+                this.dbContext
+                .Roles
+                .Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();
 
                 foreach (var role in getRolesFromDb)
                 {
                     User.UserRoles.Add(new UserRoles() { Role = role });
-                 
+
                 }
 
                 this.dbContext.Users.Add(User);
-                    this.dbContext.UserTokens.Add(userToken);
-                    this.dbContext.SaveChanges();
+                this.dbContext.UserTokens.Add(userToken);
+                this.dbContext.SaveChanges();
 
-                    return token;
-             
+                return token;
+
             }
             return "";
         }
@@ -158,14 +158,14 @@
         {
             try
             {
-                using (dbContext=new StoreDbContext())
+                using (dbContext = new StoreDbContext())
                 {
                     var getUser = dbContext.Users.SingleOrDefault(x => x.Id == model.Id);
                     //getUser = MapperConfigurator.Mapper.Map<User>(model);
-                    if (getUser.Email!=model.Email)
+                    if (getUser.Email != model.Email)
                     {
-                        var checkEmail=dbContext.Users.Where(x => x.Email == model.Email).FirstOrDefault();
-                        if (checkEmail!=null)
+                        var checkEmail = dbContext.Users.Where(x => x.Email == model.Email).FirstOrDefault();
+                        if (checkEmail != null)
                         {
                             return Messages.EmailExists;
                         }
@@ -175,17 +175,17 @@
                     getUser.LastName = model.LastName;
 
                     var checkPasswordChange = VerifyHashedPassword(getUser.Password, model.Password);
-                    if (checkPasswordChange==false)
+                    if (checkPasswordChange == false)
                     {
                         getUser.Password = HashPassword(model.Password);
-                    }                  
-                   
+                    }
+
                     dbContext.Update(getUser);
                     dbContext.SaveChanges();
                     return "";
                 }
             }
-            catch (Exception e )
+            catch (Exception e)
             {
 
                 throw new Exception(e.Message);
@@ -196,7 +196,7 @@
         {
             try
             {
-                using (dbContext=new StoreDbContext())
+                using (dbContext = new StoreDbContext())
                 {
                     var entity = dbContext.Users.FirstOrDefault(x => x.Id == id);
 
@@ -242,7 +242,7 @@
         {
             var res = StructuralComparisons.StructuralEqualityComparer.Equals(buffer3, buffer4);
             return res;
-        }       
+        }
 
         private string HashPassword(string password)
         {
@@ -263,6 +263,6 @@
             return Convert.ToBase64String(dst);
         }
 
-      
+
     }
 }

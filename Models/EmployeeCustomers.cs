@@ -1,8 +1,8 @@
-﻿using Models.BaseModels;
-
-namespace Models
+﻿namespace Models
 {
-    public class EmployeeCustomers: BaseModel
+    using Models.BaseModels;
+
+    public class EmployeeCustomers : BaseModel
     {
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }

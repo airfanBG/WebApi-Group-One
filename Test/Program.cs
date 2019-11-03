@@ -1,13 +1,4 @@
-﻿using Data;
-using Services;
-using Services.Common;
-using Services.CustomModels;
-using Services.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-
-namespace Test
+﻿namespace Test
 {
     class Program
     {
@@ -22,9 +13,9 @@ namespace Test
             //ProductSalesManager psm = new ProductSalesManager(new StoreDbContext());
             // var res=psm.GetMostSelledProducts();
             //psm.SaleProduct(new ProductSaleOrderModel() { DateOfSale = DateTime.Now, Note = "test", ProductId = 1, Quantity = 1, UserId = 2 });     
-          
+
 
         }
-      
+
     }
 }

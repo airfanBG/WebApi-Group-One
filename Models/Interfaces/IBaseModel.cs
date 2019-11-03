@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models.Interfaces
+﻿namespace Models.Interfaces
 {
     public interface IBaseModel
     {
-         int Id { get; set; }
+        int Id { get; set; }
     }
 }

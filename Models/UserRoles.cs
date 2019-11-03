@@ -1,11 +1,8 @@
-﻿using Models.BaseModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models
+﻿namespace Models
 {
-    public class UserRoles: BaseModel
+    using Models.BaseModels;
+
+    public class UserRoles : BaseModel
     {
         public int UserId { get; set; }
         public User User { get; set; }

@@ -18,7 +18,7 @@
         }
        
         [HttpPost]
-        public IActionResult RegisterUser([FromBody] TokenRequestModel model)
+        public IActionResult RegisterUser([FromBody] RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +56,7 @@
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] TokenRequestModel request)
+        public IActionResult Login([FromBody] LoginModel request)
         {
             var res = manager.LoginUser(request);
             if (res.Length > 0)

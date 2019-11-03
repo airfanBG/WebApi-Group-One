@@ -28,7 +28,7 @@ namespace Services.CustomModels.MapperSettings
         public MappingProfile()
         {
             CreateMap<ICustomModel, User>();
-            CreateMap<TokenRequestModel, User>();
+            CreateMap<RegisterModel, User>();
             CreateMap<Role, RoleModel>();
             CreateMap<ProductModel, Product>().ForMember(d=>d.ProductName, opt=>opt.MapFrom(x=>x.Name));
             CreateMap<Product, ProductModel>().ForMember(d => d.Name, opt => opt.MapFrom(x => x.ProductName)); ;

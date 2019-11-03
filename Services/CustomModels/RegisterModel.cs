@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Services.CustomModels
 {
-    public class TokenRequestModel
+    public class RegisterModel
     {
         [Required]
         [JsonProperty("email")]
@@ -18,11 +18,11 @@ namespace Services.CustomModels
 
         [Required]
         [JsonProperty("password")]
-        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]
-
-        [Compare("ConfirmPassword", ErrorMessage = "Passwords do not match!")]
+        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]       
         public string Password { get; set; }
 
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
+        
         public string ConfirmPassword { get; set; }
 
         public string FirstName { get; set; }

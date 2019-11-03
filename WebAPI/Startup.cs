@@ -29,6 +29,8 @@ namespace WebAPI
             services.AddControllers();
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddAntiforgery();
+            
 
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));
             var token = Configuration.GetSection("tokenManagement").Get<TokenModel>();
@@ -52,6 +54,7 @@ namespace WebAPI
                     };
                 });
 
+           
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager,IdentityManager>();
             services.AddScoped<ProductManager>();
@@ -70,7 +73,7 @@ namespace WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

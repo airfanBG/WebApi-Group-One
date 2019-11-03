@@ -8,7 +8,7 @@ namespace Services.Common
 {
     public static class ModelInfo
     {
-        public static string TurnModelToString(TokenRequestModel model)
+        public static string TurnModelToString(RegisterModel model)
         {
             var getProperties = model.GetType().GetProperties();
             StringBuilder sb = new StringBuilder();

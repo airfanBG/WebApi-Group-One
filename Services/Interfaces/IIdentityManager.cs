@@ -9,9 +9,9 @@ namespace Services.Interfaces
     public interface IIdentityManager
     {
       
-        string LoginUser(TokenRequestModel model);
+        string LoginUser(LoginModel model);
 
-        string Register(TokenRequestModel model);
+        string Register(RegisterModel model);
       
         string EditUser(PersonModel model);
         string DeleteUser(int id);

@@ -33,7 +33,7 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private bool IsValidUser(TokenRequestModel model)
+        private bool IsValidUser(LoginModel model)
         {
             var currentUser = this.dbContext.Users.SingleOrDefault(x => x.Email == model.Email);
 
@@ -67,7 +67,7 @@
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        private string GenerateUserToken(TokenRequestModel request)
+        private string GenerateUserToken(RequestTokenModel request)
         {
             string token = string.Empty;
 
@@ -100,11 +100,11 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string LoginUser(TokenRequestModel model)
+        public string LoginUser(LoginModel model)
         {
             if (this.IsValidUser(model))
             {
-                var token = this.GenerateUserToken(model);
+                var token = this.GenerateUserToken(new RequestTokenModel() { Email=model.Email});
                 if (token.Length > 0)
                 {
                     dbContext.UserTokens.Add(new UserToken() { Token = token, User = User });
@@ -121,13 +121,13 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Register(TokenRequestModel model)
+        public string Register(RegisterModel model)
         {
             if (this.isRegistered(model.Email) == false)
             {
                 User = new User();
 
-                    var token = GenerateUserToken(model);
+                    var token = GenerateUserToken(new RequestTokenModel() { Email=model.Email});
  
                     User=MapperConfigurator.Mapper.Map<User>(model);
 

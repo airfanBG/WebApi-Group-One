@@ -30,6 +30,7 @@
             {
                 using (context)
                 {
+
                     Employee employee = MapperConfigurator.Mapper.Map<Employee>(model);
                     employee.EmployeeNumber = NumberGenerator.EmployeeNumberGenerator(context);
 

@@ -9,6 +9,7 @@
         public Product()
         {
             SalesOrders = new HashSet<SaleOrder>();
+            Photos = new HashSet<Photo>();
         }
         [Required(ErrorMessage = "Product name is required!")]
         [MaxLength(20)]
@@ -21,6 +22,7 @@
         public decimal ProductPrice { get; set; }
 
         public int CurrentQuantity { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<SaleOrder> SalesOrders { get; set; }
     }
 }

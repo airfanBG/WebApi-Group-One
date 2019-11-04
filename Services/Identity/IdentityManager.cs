@@ -134,16 +134,16 @@
                 User.Password = HashPassword(model.Password);
 
                 var userToken = new UserToken() { Token = token, User = User };
-                var getRolesFromDb =
-                this.dbContext
-                .Roles
-                .Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();
+                //var getRolesFromDb =
+                //this.dbContext
+                //.Roles
+                //.Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();
+               
+                //foreach (var role in getRolesFromDb)
+                //{
+                //    User.UserRoles.Add(new UserRoles() { Role = role });
 
-                foreach (var role in getRolesFromDb)
-                {
-                    User.UserRoles.Add(new UserRoles() { Role = role });
-
-                }
+                //}
 
                 this.dbContext.Users.Add(User);
                 this.dbContext.UserTokens.Add(userToken);

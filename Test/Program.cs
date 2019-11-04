@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            
             // NumberGenerator.EmployeeNumberGenerator();
             // UserRolesManager um = new UserRolesManager();
             //um.Update(new UserRolesModel() { RoleIds = new System.Collections.Generic.List<int>() { 6 }, UserId = 1 });

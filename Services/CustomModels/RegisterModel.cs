@@ -24,7 +24,7 @@
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-        public ICollection<Role> Roles { get; set; }
+       // public ICollection<Role> Roles { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private ProductManager manager;
@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        public IActionResult AddProduct(ProductModel model)
+        public IActionResult AddProduct([FromForm]ProductModel model)
         {
 
             var res = manager.Add(model);

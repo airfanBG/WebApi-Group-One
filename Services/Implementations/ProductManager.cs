@@ -1,6 +1,7 @@
 ﻿namespace Services.Implementations
 {
     using Data;
+    using Microsoft.AspNetCore.Http;
     using Models;
     using Services.Common;
     using Services.CustomModels;
@@ -32,19 +33,17 @@
             {
                 using (context)
                 {
-                    
-                    if (model.Files.Count>0)
-                    {
-                        foreach (var file in model.Files)
-                        {
-                            if (file.Length>0 && file !=null)
-                            {
-                                var fileName = Path.GetFileName(file.FileName);
-                                
-                            }
-                        }
-                    }
+
                     Product product = MapperConfigurator.Mapper.Map<Product>(model);
+                    List<Photo> photos=null;
+
+                    if (model.Files.Count > 0)
+                    {
+                        photos = Photos(model.Files);
+                        product.Photos = photos;
+                    }   
+                   
+
                     this.context.Products.Add(product);
                     this.context.SaveChanges();
                     return "";
@@ -87,6 +86,14 @@
                 using (context)
                 {
                     Product product = MapperConfigurator.Mapper.Map<Product>(model);
+                    List<Photo> photos = null;
+
+                    if (model.Files.Count > 0)
+                    {
+                        photos = Photos(model.Files);
+                        product.Photos = photos;
+                    }
+
                     this.context.Products.Update(product);
                     int res = this.context.SaveChanges();
                     if (res == 1)
@@ -101,6 +108,30 @@
             {
                 throw new Exception(e.Message);
             }
+        }
+        private List<Photo> Photos(List<IFormFile> files)
+        {           
+                DirectoryManagement dm = new DirectoryManagement();
+                List<Photo> photos = new List<Photo>();
+                foreach (var file in files)
+                {
+                    if (file.Length > 0 && file != null)
+                    {
+                        var path = dm.GetFolderPath();
+
+                        var fileName = FileNameManipulator.GenerateName();
+                        var fullPath = Path.Combine(path, fileName);
+                        var fileType = Path.GetExtension(file.FileName);
+
+                        photos.Add(new Photo() { ImageType = fileType, PhotoDir = fullPath });
+                       
+                        using (var str=new FileStream(fullPath+fileType,FileMode.Create))
+                        {
+                            file.CopyTo(str);
+                        }
+                    }
+                }
+                return photos;          
         }
     }
 }

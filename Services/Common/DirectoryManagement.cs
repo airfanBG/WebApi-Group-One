@@ -33,7 +33,7 @@ namespace Services.Common
             {                
                 folder =GetLastCreatedFolder(CurrentPath);
             }
-            return CurrentPath;
+            return CurrentPath+"\\"+folder;
         }
        private string GetLastCreatedFolder(string path)
         {

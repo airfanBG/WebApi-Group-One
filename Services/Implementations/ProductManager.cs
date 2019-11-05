@@ -8,6 +8,7 @@
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class ProductManager : BaseManager<ProductModel>
@@ -31,6 +32,18 @@
             {
                 using (context)
                 {
+                    
+                    if (model.Files.Count>0)
+                    {
+                        foreach (var file in model.Files)
+                        {
+                            if (file.Length>0 && file !=null)
+                            {
+                                var fileName = Path.GetFileName(file.FileName);
+                                
+                            }
+                        }
+                    }
                     Product product = MapperConfigurator.Mapper.Map<Product>(model);
                     this.context.Products.Add(product);
                     this.context.SaveChanges();

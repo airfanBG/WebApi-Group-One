@@ -33,6 +33,7 @@
             //CreateMap<ICustomModel, RoleModel>();
             CreateMap<UserRoles, UserRolesModel>();
             CreateMap<Employee, EmployeeModel>();
+            CreateMap<Customer, CustomerModel>();
         }
     }
 }

@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191106082019_Seed.cs" />
+    <Compile Remove="Migrations\20191106082019_Seed.Designer.cs" />
+    <Compile Remove="Migrations\20191106101518_Seed.cs" />
+    <Compile Remove="Migrations\20191106101518_Seed.Designer.cs" />
+    <Compile Remove="Migrations\20191106102113_Seed.cs" />
+    <Compile Remove="Migrations\20191106102113_Seed.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>

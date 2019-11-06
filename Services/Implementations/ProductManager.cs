@@ -55,7 +55,10 @@
                 throw new Exception(e.Message);
             }
         }
-
+        public string Delete(int id)
+        {
+            return Delete(new ProductModel() { Id = id });
+        }
         public override string Delete(ProductModel model)
         {
             try

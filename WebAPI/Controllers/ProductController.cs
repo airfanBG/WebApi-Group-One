@@ -8,10 +8,10 @@
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private ProductManager manager;
-        public ProductController(ProductManager productManager)
+        public ProductsController(ProductManager productManager)
         {
             this.manager = productManager;
         }
@@ -25,15 +25,27 @@
         }
 
         [HttpPost]
+        [Route("add")]
         public IActionResult AddProduct([FromForm]ProductModel model)
         {
 
             var res = manager.Add(model);
             if (res.Length == 0)
             {
-                return Created("api/product", model);
+                return Created("api/products", model);
             }
             return BadRequest();
+        }
+        [HttpDelete]
+        [Route("delete")]
+        public IActionResult DeleteProduct(int id)
+        {
+            var res=manager.Delete(id);
+            if (res.Length!=0)
+            {
+                return BadRequest();
+            }
+            return NoContent();
         }
     }
 }

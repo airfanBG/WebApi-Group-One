@@ -2,12 +2,13 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using Services.CustomModels;
     using Services.Implementations;
 
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize(Roles ="Admin, User")]
     public class ProductsController : ControllerBase
     {
         private ProductManager manager;
@@ -20,8 +21,8 @@
         public IActionResult AllProducts()
         {
             var all = manager.AllProducts;
-
-            return Ok(all);
+            var res = JsonConvert.SerializeObject(all);
+            return Ok(res);
         }
 
         [HttpPost]
@@ -47,5 +48,5 @@
             }
             return NoContent();
         }
-    }
+    } 
 }

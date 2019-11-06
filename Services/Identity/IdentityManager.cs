@@ -1,6 +1,7 @@
 ﻿namespace Services.Identity
 {
     using Data;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using Models;
@@ -35,8 +36,8 @@
         /// <returns></returns>
         private bool IsValidUser(LoginModel model)
         {
-            var currentUser = this.dbContext.Users.SingleOrDefault(x => x.Email == model.Email);
-
+            var currentUser = this.dbContext.Users.Include(x=>x.UserRoles).ThenInclude(x=>x.Role).SingleOrDefault(x => x.Email == model.Email);
+        
             if (currentUser != null)
             {
                 var res = this.VerifyHashedPassword(currentUser.Password, model.Password);

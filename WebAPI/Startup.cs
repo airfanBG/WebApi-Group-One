@@ -30,7 +30,7 @@ namespace WebAPI
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddAntiforgery();
-
+            
 
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));
             var token = Configuration.GetSection("tokenManagement").Get<TokenModel>();
@@ -53,7 +53,7 @@ namespace WebAPI
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
+            services.AddAuthorization();
 
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();

@@ -12,5 +12,6 @@
         public const string UpdateFails = "Cannot update";
         public const string NotExistingProduct = "Product not exists";
         public const string NotExistingCustomer = "Customer not exists";
+        public const string DepartmentExists = "Department exists";
     }
 }

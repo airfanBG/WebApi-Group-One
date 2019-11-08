@@ -24,6 +24,19 @@
             var res = JsonConvert.SerializeObject(all);
             return Ok(res);
         }
+        [HttpGet]
+        [Route("{id:int}")]
+        public IActionResult GetProduct(int id)
+        {
+            var product = manager.Get(id);
+            if (product!=null)
+            {
+                var res = JsonConvert.SerializeObject(product);
+                return Ok(res);
+            }
+            return NotFound();
+        }
+
 
         [HttpPost]
         [Route("add")]

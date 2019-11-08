@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Services.CustomModels;
+    using Services.CustomModels.MapperSettings;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -115,6 +116,24 @@
                     return "";
                 }
 
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public override UserRolesModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getUserRoles = this.context.UserRoles.SingleOrDefault(x => x.Id == id);
+                    var res = MapperConfigurator.Mapper.Map<UserRolesModel>(getUserRoles);
+                    return res;
+                }
             }
             catch (Exception e)
             {

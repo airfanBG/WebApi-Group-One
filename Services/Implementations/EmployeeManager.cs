@@ -92,5 +92,23 @@
                 throw new Exception(e.Message);
             }
         }
+
+        public override EmployeeModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getEmployee = this.context.Departments.SingleOrDefault(x => x.Id == id);
+                    var res = MapperConfigurator.Mapper.Map<EmployeeModel>(getEmployee);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

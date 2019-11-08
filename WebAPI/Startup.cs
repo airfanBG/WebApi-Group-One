@@ -58,6 +58,7 @@ namespace WebAPI
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
+            services.AddScoped<DepartmentManager>();
 
         }
 

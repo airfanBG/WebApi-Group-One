@@ -1,6 +1,7 @@
 ﻿using Models;
 using Services.Common;
 using Services.CustomModels;
+using Services.CustomModels.MapperSettings;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ namespace Services.Implementations
 {
     public class DepartmentManager : BaseManager<DepartmentModel>
     {
+        public List<DepartmentManager> AllDepartments
+        {
+            get
+            {
+                return MapperConfigurator.Mapper.Map<List<DepartmentManager>>(this.context.Departments.ToList());
+            }
+        }
         public DepartmentManager():base(new Data.StoreDbContext())
         {
 
@@ -95,6 +103,24 @@ namespace Services.Implementations
                         return "";
                     }
                     return string.Format($"Not updated {model.Id}");
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public override DepartmentModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getDepartment = this.context.Departments.SingleOrDefault(x => x.Id ==id);
+                    var res = MapperConfigurator.Mapper.Map<DepartmentModel>(getDepartment);
+                    return res;
                 }
             }
             catch (Exception e)

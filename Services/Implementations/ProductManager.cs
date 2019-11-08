@@ -136,5 +136,23 @@
                 }
                 return photos;          
         }
+
+        public override ProductModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getProduct = this.context.Products.SingleOrDefault(x => x.Id == id);
+                    var res = MapperConfigurator.Mapper.Map<ProductModel>(getProduct);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

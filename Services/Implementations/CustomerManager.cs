@@ -62,6 +62,24 @@ namespace Services.Implementations
             }
         }
 
+        public override CustomerModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getCustomer = this.context.Customers.SingleOrDefault(x => x.Id == id);
+                    var res = MapperConfigurator.Mapper.Map<CustomerModel>(getCustomer);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
         public override string Update(CustomerModel model)
         {
             try

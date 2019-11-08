@@ -6,6 +6,7 @@
     using Services.CustomModels;
     using Services.CustomModels.MapperSettings;
     using Services.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -51,6 +52,24 @@
                 context.Roles.Remove(role);
                 context.SaveChanges();
                 return "";
+            }
+        }
+
+        public override RoleModel Get(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    var getRole = this.context.Customers.SingleOrDefault(x => x.Id == id);
+                    var res = MapperConfigurator.Mapper.Map<RoleModel>(getRole);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
             }
         }
 

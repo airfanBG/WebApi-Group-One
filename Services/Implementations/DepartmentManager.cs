@@ -86,7 +86,32 @@ namespace Services.Implementations
                 throw new Exception(e.Message);
             }
         }
-       
+        public string Delete(int id)
+        {
+            try
+            {
+                using (context)
+                {
+                    if (id != 0)
+                    {
+                        var getDepartment = this.context.Departments.SingleOrDefault(x => x.Id == id);
+                        if (getDepartment != null)
+                        {
+                            this.context.Remove(getDepartment);
+                            this.context.SaveChanges();
+                            return "";
+                        }                        
+                    }
+                    return string.Format($"Not deleted {id}");
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
         public override string Update(DepartmentModel model)
         {
             try

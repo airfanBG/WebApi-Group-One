@@ -59,7 +59,7 @@ namespace WebAPI
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
             services.AddScoped<DepartmentManager>();
-
+            services.AddScoped<ProductStatisticManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Services.CustomModels;
@@ -33,7 +28,7 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Departments/5
-        [HttpGet("{id:int}", Name = "Get")]
+        [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
             var res = this.manager.Get(id);
@@ -46,20 +41,38 @@ namespace WebAPI.Controllers
 
         // POST: api/Departments
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] DepartmentModel model)
         {
+            var res=this.manager.Add(model);
+            if (res.Length==0)
+            {
+                return Created("api/Departments", model);
+            }
+            return BadRequest(res);
         }
 
-        // PUT: api/Departments/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        
+        [HttpPut]
+        public IActionResult Put([FromBody] DepartmentModel model)
         {
+            var res = this.manager.Update(model);
+            if (res.Length == 0)
+            {
+                return Created("api/Departments", model);
+            }
+            return BadRequest(res);
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
         {
+            var res = this.manager.Delete(id);
+            if (res.Length == 0)
+            {
+                return Ok();
+            }
+            return BadRequest(res);
         }
     }
 }

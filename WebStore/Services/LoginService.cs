@@ -12,7 +12,7 @@ namespace WebStore.Services
 {
     public class LoginService
     {
-        private string url = "http://localhost:55542/api/users/login";
+        private string url = "https://localhost:55542/api/users/login";
 
         public string Login(LoginModel model)
         {

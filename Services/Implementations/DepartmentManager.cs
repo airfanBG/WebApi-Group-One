@@ -28,7 +28,7 @@ namespace Services.Implementations
             try
             {
                 using (context)
-                {
+                {                    
                     var getDepartment = this.context.Departments.SingleOrDefault(x => x.DepartmentName == model.DepartmentName);
                     if (getDepartment==null)
                     {

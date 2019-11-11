@@ -4,6 +4,7 @@ namespace WebAPI
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -55,6 +56,8 @@ namespace WebAPI
                 });
             services.AddAuthorization();
 
+            
+
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
@@ -69,11 +72,14 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+          
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+           
+            app.UseHttpsRedirection();
+           
 
             app.UseEndpoints(endpoints =>
             {

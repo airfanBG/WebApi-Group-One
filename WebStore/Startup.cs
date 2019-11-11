@@ -27,8 +27,8 @@ namespace WebStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddJwtBearer();
 
+            
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //   .AddJwtBearer(x =>
             //   {
@@ -49,7 +49,7 @@ namespace WebStore
             //services.AddAuthorization();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+          
 
         }
 
@@ -67,7 +67,6 @@ namespace WebStore
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

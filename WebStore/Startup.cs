@@ -27,30 +27,8 @@ namespace WebStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //   .AddJwtBearer(x =>
-            //   {
-            //       x.RequireHttpsMetadata = false;
-            //       x.SaveToken = true;
-            //       x.TokenValidationParameters = new TokenValidationParameters
-            //       {
-            //           ValidateIssuer = true,
-            //           ValidateAudience = false,
-            //            //ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //           IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("One small step for...")),
-            //           ValidIssuer = "https://localhost:55542/",
-                       
-            //            ClockSkew = TimeSpan.Zero
-            //       };
-            //   });
-            //services.AddAuthorization();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
-          
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,9 +45,7 @@ namespace WebStore
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

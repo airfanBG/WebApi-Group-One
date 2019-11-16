@@ -12,9 +12,9 @@ namespace WebStore.Services
 {
     public class LoginService
     {
-        private string url = "https://localhost:55542/api/users/login";
+        private string url = "https://localhost:44330/api/users/login";
 
-        public string Login(LoginModel model)
+        public KeyValuePair<string,string> Login(LoginModel model)
         {
             using (HttpClient cl=new HttpClient())
             {
@@ -24,9 +24,13 @@ namespace WebStore.Services
                 bytes.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 var res=cl.PostAsync(url, bytes).Result;
                 
-                var token = res.Content.ReadAsStringAsync().Result;
-
-                return token;
+                
+                if (res.StatusCode==System.Net.HttpStatusCode.OK)
+                {
+                    var token = res.Content.ReadAsStringAsync().Result;
+                    return new KeyValuePair<string, string>("Token",token);
+                }
+                return new KeyValuePair<string, string>("Error", res.RequestMessage.Content.ReadAsStringAsync().Result);
             }
 
             

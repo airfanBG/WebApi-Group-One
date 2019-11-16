@@ -1,4 +1,4 @@
-﻿namespace Services.CustomModels
+﻿namespace WebStore.Models
 {
     using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;

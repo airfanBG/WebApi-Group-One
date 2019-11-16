@@ -1,4 +1,4 @@
-﻿using Services.CustomModels;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace WebStore.Services
 {
     public class ProductService
     {
-        private string url = "http://localhost:55542/api/Products";
+       // private string url = "http://localhost:55542/api/Products";
 
         //public List<ProductModel> All()
         //{

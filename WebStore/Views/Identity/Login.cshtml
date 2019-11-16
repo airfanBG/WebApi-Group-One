@@ -6,12 +6,13 @@
 
 <h1>Login</h1>
 <form asp-controller="Identity" asp-action="Login" method="post">
-    <div class="form-control" id="Email">
-        <input type="email" name="email" value="" />
+
+    <div class="col-md-5">
+        <input class="form form-control" type="email" name="email" value="" />
+
+        <input class="form form-control" type="password" name="password" value="" />
+
+        <input type="submit" name="Login" value="Login" />
     </div>
-    <div class="form-control" id="password" >
-        <input type="password" name="password" value="" />
-    </div>
-    <input type="submit" name="Login" value="Login" />
 </form>
 

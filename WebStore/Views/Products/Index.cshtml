@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<div class="btn btn-success" id="get">Get All</div>
+<div id="content"></div>
+
+@section Scripts{
+    <script>
+       
+        $("#get").click(function () {
+            $.ajax({
+                method: "Get",
+                dataType: 'html',
+                url: "https://localhost:44373/products/getall",
+                success: function (data) {
+                    $("#content").html(data);
+                }
+            });
+        });
+    </script>
+}
+
+

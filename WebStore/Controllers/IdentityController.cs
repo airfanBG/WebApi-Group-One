@@ -20,8 +20,21 @@ namespace WebStore.Controllers
         {
             LoginService ls = new LoginService();
             var token=ls.Login(model);
-          
-            return View();
+            if (token.Key=="Error")
+            {
+                return Unauthorized(token.Value);
+            }
+            else
+            {
+                if (!TempData.Keys.Contains("Token"))
+                {
+                    TempData.Add(new KeyValuePair<string, object>("Token", token.Value));
+                }
+                TempData["Token"] = token;
+
+                return View();
+            }
+           
         }
 
     }

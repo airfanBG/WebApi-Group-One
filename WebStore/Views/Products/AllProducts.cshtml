@@ -2,9 +2,25 @@
 @model List<ProductModel>
 
 
-@foreach (var item in Model)
-{
-    <p>@item.Name</p>
-}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td scope="col">Name</td>
+            </tr>
+        </thead>
+        <tbody>
+          
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                    </tr>
+
+                }
+               
+        </tbody>
+    </table>
+
 
 

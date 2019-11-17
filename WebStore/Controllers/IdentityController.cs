@@ -30,9 +30,12 @@ namespace WebStore.Controllers
                 {
                     TempData.Add(new KeyValuePair<string, object>("Token", token.Value));
                 }
-                TempData["Token"] = token;
+                else
+                {
+                    TempData["Token"] = token;
+                }
 
-                return View();
+                return Redirect("../Products/index");
             }
            
         }

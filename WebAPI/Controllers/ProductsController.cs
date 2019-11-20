@@ -8,10 +8,10 @@
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin, User")]
+    [Authorize(Roles = "Admin, User")]
     public class ProductsController : ControllerBase
     {
-        private ProductManager manager;
+        private readonly ProductManager manager;
         public ProductsController(ProductManager productManager)
         {
             this.manager = productManager;
@@ -29,7 +29,7 @@
         public IActionResult GetProduct(int id)
         {
             var product = manager.Get(id);
-            if (product!=null)
+            if (product != null)
             {
                 var res = JsonConvert.SerializeObject(product);
                 return Ok(res);
@@ -54,12 +54,12 @@
         [Route("delete")]
         public IActionResult DeleteProduct(int id)
         {
-            var res=manager.Delete(id);
-            if (res.Length!=0)
+            var res = manager.Delete(id);
+            if (res.Length != 0)
             {
                 return BadRequest();
             }
             return NoContent();
         }
-    } 
+    }
 }

@@ -5,19 +5,17 @@ namespace WebAPI
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using Services.CustomModels;
     using Services.Identity;
     using Services.Implementations;
     using Services.Interfaces;
     using System;
     using System.Text;
-    using Microsoft.OpenApi.Models;
-    using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
     {
@@ -64,7 +62,7 @@ namespace WebAPI
 
             services.AddAuthorization();
 
-            
+
 
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();
@@ -80,16 +78,16 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-          
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-           
+
             app.UseHttpsRedirection();
             app.UseSwagger();
 
-      
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
@@ -100,7 +98,7 @@ namespace WebAPI
                 endpoints.MapControllers();
             });
 
-            
+
         }
     }
 }

@@ -8,10 +8,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin, User, Seller")]
+    [Authorize(Roles = "Admin, User, Seller")]
     public class DepartmentsController : ControllerBase
     {
-        private DepartmentManager manager;
+        private readonly DepartmentManager manager;
 
         public DepartmentsController(DepartmentManager manager)
         {
@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         // GET: api/Departments
         [HttpGet]
         [Route("all")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             var res = JsonConvert.SerializeObject(this.manager.AllDepartments);
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         public IActionResult Get(int id)
         {
             var res = this.manager.Get(id);
-            if (res!=null)
+            if (res != null)
             {
                 return Ok(res);
             }
@@ -43,15 +43,15 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] DepartmentModel model)
         {
-            var res=this.manager.Add(model);
-            if (res.Length==0)
+            var res = this.manager.Add(model);
+            if (res.Length == 0)
             {
                 return Created("api/Departments", model);
             }
             return BadRequest(res);
         }
 
-        
+
         [HttpPut]
         public IActionResult Put([FromBody] DepartmentModel model)
         {

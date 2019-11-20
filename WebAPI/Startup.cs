@@ -57,7 +57,22 @@ namespace WebAPI
                 });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Store Web API",
+                    Version = "v1",
+                    Description = "A simple example ASP.NET Core Web API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Daniel Damyanov",
+                        Email = "damyanovdaniel@yahoo.com",
+                        Url = new Uri("https://github.com/airfanBG"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Free",
+                        Url = new Uri("https://github.com/airfanBG/WebApi-Group-One"),
+                    }
+                });
             });
 
             services.AddAuthorization();

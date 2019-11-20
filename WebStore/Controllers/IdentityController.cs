@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Models;
 using WebStore.Services;
@@ -26,14 +28,8 @@ namespace WebStore.Controllers
             }
             else
             {
-                if (!TempData.Keys.Contains("Token"))
-                {
-                    TempData.Add(new KeyValuePair<string, object>("Token", token.Value));
-                }
-                else
-                {
-                    TempData["Token"] = token;
-                }
+                HttpContext.Session.SetString("Token",token.Value);
+                
 
                 return Redirect("../Products/index");
             }

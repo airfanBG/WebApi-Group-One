@@ -1,26 +1,28 @@
-﻿
-@model List<ProductModel>
+﻿@model List<ProductModel>
 
 
+<table class="table">
+    <thead>
+        <tr>
+            <td scope="col">Name</td>
+            <td scope="col">Price</td>
+            <td scope="col">Description</td>
+        </tr>
+    </thead>
+    <tbody>
 
-    <table class="table">
-        <thead>
+        @foreach (var product in Model)
+        {
             <tr>
-                <td scope="col">Name</td>
+                <td>@product.Name</td>
+                <td>@product.ProductPrice</td>
+                <td>@(product.Description.Length > 15 ? product.Description.Substring(0, 15) + "..." : product.Description) </td>
+                <td><div class="btn btn-success" id="ProductId" data-id="@product.Id">More</div></td>
             </tr>
-        </thead>
-        <tbody>
-          
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                    </tr>
+        }
 
-                }
-               
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
 
 

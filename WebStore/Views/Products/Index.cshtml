@@ -10,8 +10,8 @@
 <div id="content"></div>
 
 @section Scripts{
-    <script>
-       
+    <script type="text/javascript">
+        $(document).ready(
         $("#get").click(function () {
             $.ajax({
                 method: "Get",
@@ -20,6 +20,25 @@
                 success: function (data) {
                     $("#content").html(data);
                 }
+            });
+        }));
+
+        $(document).ready(function () {
+            $(document).on("click", "#ProductId", function () {
+
+                var id = $(this).attr('data-id');
+              
+                $.ajax({
+                    method: "GET",
+                    url: "https://localhost:44373/products/getbyid",
+                    data: new {"id":id},
+                        dataType: 'json',
+                       success: function (data) {
+                           var res = jQuery.parseJSON(data);
+                           alert(res);
+                       }
+                   });
+     
             });
         });
     </script>

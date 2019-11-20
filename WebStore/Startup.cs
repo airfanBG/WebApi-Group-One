@@ -30,7 +30,19 @@ namespace WebStore
         {
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
+            services.AddDistributedMemoryCache();
 
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(60*60*15);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+                options.Cookie.Name = "StoreSession";
+            });
+
+           
             services.AddScoped<ProductService>();
         }
 
@@ -48,7 +60,9 @@ namespace WebStore
             app.UseStaticFiles();
 
             app.UseRouting();
-           
+            
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -40,7 +40,7 @@
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddProduct([FromForm]ProductModel model)
+        public IActionResult AddProduct(ProductModel model)
         {
 
             var res = manager.Add(model);

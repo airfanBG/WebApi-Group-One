@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Services;
 
 namespace WebStore.Controllers
@@ -18,15 +19,29 @@ namespace WebStore.Controllers
         }
         public IActionResult GetAll()
         {
-            var token = TempData["Token"];
+            var token = HttpContext.Session.GetString("Token");
             var res = service.All((string)token);
             if (res != null)
             {
-                return PartialView("AllProducts", res);
+                return PartialView("AllProducts",res);
             }
            
             return Unauthorized();            
           
+        }
+        
+        public IActionResult GetById(int id)
+        {
+
+            var token = HttpContext.Session.GetString("Token");
+            var res = service.GetById(id,token);
+            if (res != null)
+            {
+                return Json(res);
+            }
+
+            return Unauthorized();
+
         }
     }
 }

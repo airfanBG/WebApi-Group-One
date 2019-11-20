@@ -29,5 +29,22 @@ namespace WebStore.Services
                 return null;
             }
         }
+        public ProductModel GetById(int id, string token)
+        {
+            using (HttpClient cl = new HttpClient())
+            {
+                cl.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                
+                var res = cl.GetAsync(url+"/"+id).Result;
+
+                if (res.StatusCode != System.Net.HttpStatusCode.Unauthorized)
+                {
+                    var content = res.Content.ReadAsStringAsync();
+                    var model = JsonConvert.DeserializeObject<ProductModel>(content.Result);
+                    return model;
+                }
+                return null;
+            }
+        }
     }
 }

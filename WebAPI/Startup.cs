@@ -16,6 +16,9 @@ namespace WebAPI
     using Services.Interfaces;
     using System;
     using System.Text;
+    using Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.Swagger;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,7 +35,6 @@ namespace WebAPI
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddAntiforgery();
-            
 
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));
             var token = Configuration.GetSection("tokenManagement").Get<TokenModel>();
@@ -55,6 +57,11 @@ namespace WebAPI
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+
             services.AddAuthorization();
 
             
@@ -80,14 +87,20 @@ namespace WebAPI
             app.UseSession();
            
             app.UseHttpsRedirection();
-           
+            app.UseSwagger();
+
+      
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-
+            
         }
     }
 }

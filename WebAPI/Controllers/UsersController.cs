@@ -63,6 +63,7 @@
             var res = manager.LoginUser(request);
             if (res.Length > 0)
             {
+                
                 Request.Headers.Add("Authorization", res);
                 return Ok(res);
             }

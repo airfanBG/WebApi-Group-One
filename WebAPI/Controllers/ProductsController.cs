@@ -21,8 +21,8 @@
         public IActionResult AllProducts()
         {
             var all = manager.AllProducts;
-            
-            return Ok(all);
+            var res = JsonConvert.SerializeObject(all);
+            return Ok(res);
         }
         [HttpGet]
         [Route("{id:int}")]
@@ -31,9 +31,10 @@
             var product = manager.Get(id);
             if (product != null)
             {
-               
-                return Ok(product);
+                var res = JsonConvert.SerializeObject(product);
+                return Ok(res);
             }
+
             return NotFound();
         }
 

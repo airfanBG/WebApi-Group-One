@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
-            var res = JsonConvert.SerializeObject(this.manager.AllDepartments);
+            var res = this.manager.AllDepartments;
             return Ok(res);
         }
 

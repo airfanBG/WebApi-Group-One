@@ -8,7 +8,7 @@
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin, User")]
+    [Authorize(Roles = "Admin, User")]
     public class ProductsController : ControllerBase
     {
         private ProductManager manager;
@@ -21,19 +21,20 @@
         public IActionResult AllProducts()
         {
             var all = manager.AllProducts;
-            
-            return Ok(all);
+            var res = JsonConvert.SerializeObject(all);
+            return Ok(res);
         }
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetProduct(int id)
         {
             var product = manager.Get(id);
-            if (product!=null)
+            if (product != null)
             {
-               
-                return Ok(product);
+                var res = JsonConvert.SerializeObject(product);
+                return Ok(res);
             }
+
             return NotFound();
         }
 
@@ -54,12 +55,12 @@
         [Route("delete")]
         public IActionResult DeleteProduct(int id)
         {
-            var res=manager.Delete(id);
-            if (res.Length!=0)
+            var res = manager.Delete(id);
+            if (res.Length != 0)
             {
                 return BadRequest();
             }
             return NoContent();
         }
-    } 
+    }
 }

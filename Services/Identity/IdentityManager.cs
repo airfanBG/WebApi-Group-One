@@ -74,12 +74,13 @@
 
             var claim = new List<Claim>()
             {
-              new Claim(ClaimTypes.Email, request.Email)
+              new Claim(ClaimTypes.Email, request.Email),
+              
             };
 
-            for (int i = 0; i < User.UserRoles.Count; i++)
+            for (int i = 0; i < request.Roles.Count; i++)
             {
-                claim.Add(new Claim(ClaimTypes.Role, User.UserRoles.ToList()[i].Role.RoleName));
+                claim.Add(new Claim(ClaimTypes.Role, request.Roles.ToList()[i].RoleName));
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
@@ -128,23 +129,26 @@
             {
                 User = new User();
 
-                var token = GenerateUserToken(new RequestTokenModel() { Email = model.Email });
+                var token = GenerateUserToken(new RequestTokenModel() { Email = model.Email,Roles=MapperConfigurator.Mapper.Map<List<RoleModel>>(model.Roles) });
 
                 User = MapperConfigurator.Mapper.Map<User>(model);
 
                 User.Password = HashPassword(model.Password);
 
                 var userToken = new UserToken() { Token = token, User = User };
-                //var getRolesFromDb =
-                //this.dbContext
-                //.Roles
-                //.Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();
-               
-                //foreach (var role in getRolesFromDb)
-                //{
-                //    User.UserRoles.Add(new UserRoles() { Role = role });
+                if (model.Roles!=null)
+                {
+                    var getRolesFromDb =
+               this.dbContext
+               .Roles
+               .Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();
 
-                //}
+                    foreach (var role in getRolesFromDb)
+                    {
+                        User.UserRoles.Add(new UserRoles() { Role = role });
+
+                    }
+                }
 
                 this.dbContext.Users.Add(User);
                 this.dbContext.UserTokens.Add(userToken);

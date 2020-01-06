@@ -28,13 +28,16 @@
         [Route("{id:int}")]
         public IActionResult GetProduct(int id)
         {
-            var product = manager.Get(id);
-            if (product != null)
+            if (id!=0)
             {
-                var res = JsonConvert.SerializeObject(product);
-                return Ok(res);
-            }
+                var product = manager.Get(id);
+                if (product != null)
+                {
+                    var res = JsonConvert.SerializeObject(product);
+                    return Ok(res);
+                }
 
+            }
             return NotFound();
         }
 
@@ -55,10 +58,13 @@
         [Route("delete")]
         public IActionResult DeleteProduct(int id)
         {
-            var res = manager.Delete(id);
-            if (res.Length != 0)
+            if (id!=0)
             {
-                return BadRequest();
+                var res = manager.Delete(id);
+                if (res.Length != 0)
+                {
+                    return BadRequest();
+                }
             }
             return NoContent();
         }

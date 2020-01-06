@@ -28,6 +28,7 @@
             CreateMap<ICustomModel, User>();
             CreateMap<RegisterModel, User>();
             CreateMap<Role, RoleModel>();
+            CreateMap<RoleModel, Role>();
             CreateMap<ProductModel, Product>().ForMember(d => d.ProductName, opt => opt.MapFrom(x => x.Name));
             CreateMap<Product, ProductModel>().ForMember(d => d.Name, opt => opt.MapFrom(x => x.ProductName)); ;
             //CreateMap<ICustomModel, RoleModel>();

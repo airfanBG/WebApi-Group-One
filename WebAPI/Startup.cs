@@ -45,10 +45,12 @@ namespace WebAPI
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
+                   
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = false,
+                        
                         //ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
@@ -57,14 +59,13 @@ namespace WebAPI
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
             services.AddAuthorization();
-
-            
 
             services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();

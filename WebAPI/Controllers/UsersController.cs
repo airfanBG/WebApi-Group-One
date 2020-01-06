@@ -37,11 +37,15 @@
         [Authorize(Roles="Admin")]
         public IActionResult DeleteUser(int id)
         {
-            var res = manager.DeleteUser(id);
-            if (res.Length == 0)
+            if (id!=0)
             {
-                return Ok();
+                var res = manager.DeleteUser(id);
+                if (res.Length == 0)
+                {
+                    return Ok();
+                }
             }
+            
             return BadRequest();
         }
         [HttpPut]

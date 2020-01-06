@@ -31,10 +31,13 @@ namespace WebAPI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var res = this.manager.Get(id);
-            if (res!=null)
+            if (id!=0)
             {
-                return Ok(res);
+                var res = this.manager.Get(id);
+                if (res != null)
+                {
+                    return Ok(res);
+                }
             }
             return NotFound();
         }
@@ -67,12 +70,15 @@ namespace WebAPI.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
-            var res = this.manager.Delete(id);
-            if (res.Length == 0)
+            if (id!=0)
             {
-                return Ok();
+                var res = this.manager.Delete(id);
+                if (res.Length == 0)
+                {
+                    return Ok();
+                }
             }
-            return BadRequest(res);
+            return BadRequest();
         }
     }
 }

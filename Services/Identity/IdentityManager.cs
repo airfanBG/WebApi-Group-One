@@ -36,12 +36,16 @@
         /// <returns></returns>
         private bool IsValidUser(LoginModel model)
         {
-            var currentUser = this.dbContext.Users.Include(x=>x.UserRoles).ThenInclude(x=>x.Role).SingleOrDefault(x => x.Email == model.Email);
+            var currentUser = this.dbContext.Users
+                .Include(x=>x.UserRoles)
+                .ThenInclude(x=>x.Role)
+                .SingleOrDefault(x => x.Email == model.Email);
         
             if (currentUser != null)
             {
                 var res = this.VerifyHashedPassword(currentUser.Password, model.Password);
                 User = currentUser;
+
                 return res;
             }
             else
@@ -75,13 +79,17 @@
             var claim = new List<Claim>()
             {
               new Claim(ClaimTypes.Email, request.Email),
-              
+             
             };
 
-            for (int i = 0; i < request.Roles.Count; i++)
+            if (request.Roles!=null)
             {
-                claim.Add(new Claim(ClaimTypes.Role, request.Roles.ToList()[i].RoleName));
+                for (int i = 0; i < request.Roles.Count; i++)
+                {
+                    claim.Add(new Claim(ClaimTypes.Role, request.Roles.ToList()[i].RoleName));
+                }
             }
+           
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -106,7 +114,7 @@
         {
             if (this.IsValidUser(model))
             {
-                var token = this.GenerateUserToken(new RequestTokenModel() { Email = model.Email });
+                var token = this.GenerateUserToken(new RequestTokenModel() { Email = model.Email, Roles = MapperConfigurator.Mapper.Map<List<RoleModel>>(User.UserRoles.Select(x=>x.Role).ToList()) });
                 if (token.Length > 0)
                 {
                     dbContext.UserTokens.Add(new UserToken() { Token = token, User = User });
@@ -138,7 +146,8 @@
                 var userToken = new UserToken() { Token = token, User = User };
                 if (model.Roles!=null)
                 {
-                    var getRolesFromDb =
+
+               var getRolesFromDb =
                this.dbContext
                .Roles
                .Where(x => model.Roles.Select(z => z.RoleName).Contains(x.RoleName)).ToList();

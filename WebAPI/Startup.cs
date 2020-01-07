@@ -67,7 +67,7 @@ namespace WebAPI
 
             services.AddAuthorization();
 
-            services.AddScoped<StoreDbContext, StoreDbContext>();
+            services.AddScoped<StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
             services.AddScoped<DepartmentManager>();

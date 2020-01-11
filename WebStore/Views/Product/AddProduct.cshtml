@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddProduct</h1>
+<form id="form" asp-action="Save" asp-controller="Product">
+   
+        <input class="form-control" type="text" id="idProd" />
+        <input id="save" type="submit" name="Save" />
+    
+</form> 
+
+@*@section Scripts{ 
+    <script>
+        var form = $("#idProd");
+
+        $("#save").click(function () {
+            $.ajax({
+                method: "POST",
+                url:'@Url.Action("Save", "Product")',
+                data: form
+               
+            });
+        });
+       
+    </script>
+}*@

@@ -1,0 +1,32 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using Services.CustomModels;
+
+@model IPagedList<ProductModel>
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">@Html.LabelFor(x => Model[0].Name)</th>
+            <th scope="col">@Html.LabelFor(x => Model[0].ProductPrice)</th>
+            <th scope="col">@Html.LabelFor(x => Model[0].Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.ProductPrice</td>
+                <td>@item.Description</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

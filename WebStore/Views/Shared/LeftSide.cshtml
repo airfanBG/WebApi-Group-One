@@ -1,0 +1,15 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href=@Url.Action("AddProduct","Product")>Add product</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Update</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Delete</a>
+        </li>
+       
+    </ul>
+}

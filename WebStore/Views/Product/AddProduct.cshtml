@@ -1,29 +1,42 @@
-﻿
+﻿@using Services.CustomModels
+@model ProductModel
+
 @{
     ViewData["Title"] = "AddProduct";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AddProduct</h1>
-<form id="form" asp-action="Save" asp-controller="Product">
-   
-        <input class="form-control" type="text" id="idProd" />
-        <input id="save" type="submit" name="Save" />
-    
-</form> 
+<h1>Add Product</h1>
+<div class="col-md-5">
+    <form id="form" asp-action="Save" asp-controller="Product">
 
-@*@section Scripts{ 
-    <script>
-        var form = $("#idProd");
+        <div>
+            <div>@Html.DisplayName("Product name")</div>
+            <input class="form-control" type="text" name="name" id="productName" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-        $("#save").click(function () {
-            $.ajax({
-                method: "POST",
-                url:'@Url.Action("Save", "Product")',
-                data: form
-               
-            });
-        });
+        <div>
+            <div>@Html.DisplayName("Product description")</div>
+            <input class="form-control" type="text" name="description" id="productDescription" />
+        </div>
+        
+        <div>
+            <div>@Html.DisplayName("Product price")</div>
+            <input class="form-control" type="text" name="productPrice" id="productPrice" />
+        </div>
        
-    </script>
-}*@
+        <div>
+            <div>@Html.DisplayName("Product quantity")</div>
+            <input class="form-control" type="text" name="currentQuantity" id="currentQuantity" />
+        </div>
+        
+        <div>
+            <div>@Html.DisplayName("Product pictures")</div>
+            <input class="form-control" type="file" name="files" multiple id="files" />
+        </div>
+        <input id="save" type="submit" name="Save" />
+
+    </form>
+
+</div>

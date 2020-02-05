@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Services.Implementations;
 using WebStore.Services.Implementations;
 using WebStore.Hubs;
+using Data;
 
 namespace WebStore
 {
@@ -36,7 +37,17 @@ namespace WebStore
             services.AddRazorPages();
             services.AddSignalR();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(60*60);
+                options.Cookie.HttpOnly = true;                
+                options.Cookie.IsEssential = true;
+            });
             services.AddScoped<ProductManager>();
+            services.AddScoped<ProductSalesManager>();
+            services.AddScoped<StoreDbContext>();
+            services.AddScoped<UserManager<IdentityUser>>();
+
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddDirectoryBrowser();
         }
@@ -58,7 +69,7 @@ namespace WebStore
             app.UseFileServer();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();

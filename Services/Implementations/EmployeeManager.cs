@@ -93,7 +93,7 @@
             }
         }
 
-        public override EmployeeModel Get(int id)
+        public override EmployeeModel Get(string id)
         {
             try
             {

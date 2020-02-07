@@ -16,7 +16,7 @@
         {
         }
 
-        public ICollection<UserRolesModel> GetAll(int userId)
+        public ICollection<UserRolesModel> GetAll(string userId)
         {
             try
             {
@@ -82,7 +82,7 @@
             {
                 User user = this.context.Users.Include(x => x.UserRoles).Single(x => x.Id == model.UserId);
 
-                List<int> newRoles = this.context.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).Where(x => model.RoleIds.Contains(x)).ToList();
+                List<string> newRoles = this.context.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).Where(x => model.RoleIds.Contains(x)).ToList();
 
                 user.UserRoles.Clear();
 
@@ -124,7 +124,7 @@
             }
         }
 
-        public override UserRolesModel Get(int id)
+        public override UserRolesModel Get(string id)
         {
             try
             {

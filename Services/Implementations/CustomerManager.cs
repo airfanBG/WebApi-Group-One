@@ -25,7 +25,7 @@ namespace Services.Implementations
 
                     Customer customer = MapperConfigurator.Mapper.Map<Customer>(model);
                     var user = context.Users.Single(x => x.Id == model.PersonId);
-                    customer.Person = user;
+                    customer.User = user;
 
                     this.context.Customers.Add(customer);
                     this.context.SaveChanges();
@@ -62,7 +62,7 @@ namespace Services.Implementations
             }
         }
 
-        public override CustomerModel Get(int id)
+        public override CustomerModel Get(string id)
         {
             try
             {

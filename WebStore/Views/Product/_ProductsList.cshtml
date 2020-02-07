@@ -1,6 +1,7 @@
 ﻿@using X.PagedList.Mvc.Core;
 @using X.PagedList;
 @using Services.CustomModels;
+@inject Services.Implementations.ProductSalesManager sales;
 
 @model IPagedList<ProductModel>
 @*<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
@@ -35,7 +36,6 @@
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
-
 <script>
    
     $("#add").on("click", function () {
@@ -46,8 +46,8 @@
             method: "POST",
             url: '@Url.Action("AddProduct", "Order")',
             data: { 'productId': id, 'quantity': q},
-            success: function (res) {
-
+            success: function () {
+               
             }
         });
     });

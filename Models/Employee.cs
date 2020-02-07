@@ -16,8 +16,8 @@
         public string Telephone { get; set; }
         [Required(ErrorMessage = "Bank account is required!")]
         public int BankAccount { get; set; }
-        public int? PersonId { get; set; }
-        public virtual User Person { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }

@@ -29,9 +29,9 @@ namespace WebAPI.Controllers
 
         // GET: api/Departments/5
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(string id)
         {
-            if (id!=0)
+            if (!string.IsNullOrEmpty(id))
             {
                 var res = this.manager.Get(id);
                 if (res != null)
@@ -68,9 +68,9 @@ namespace WebAPI.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            if (id!=0)
+            if (!string.IsNullOrEmpty(id))
             {
                 var res = this.manager.Delete(id);
                 if (res.Length == 0)

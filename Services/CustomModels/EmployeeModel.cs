@@ -5,7 +5,7 @@
 
     public class EmployeeModel : ICustomModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string EmployeeNumber { get; set; }
 
         public string Telephone { get; set; }

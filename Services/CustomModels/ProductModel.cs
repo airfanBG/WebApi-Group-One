@@ -7,7 +7,7 @@
 
     public class ProductModel : ICustomModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required(ErrorMessage ="Product  name is required!")]
         [MinLength(2)]
         public string Name { get; set; }

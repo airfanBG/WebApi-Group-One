@@ -13,8 +13,8 @@
         public string Note { get; set; }
 
         [Required]
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

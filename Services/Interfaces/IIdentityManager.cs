@@ -10,7 +10,7 @@ namespace Services.Interfaces
         string Register(RegisterModel model);
 
         string EditUser(PersonModel model);
-        string DeleteUser(int id);
+        string DeleteUser(string id);
 
 
     }

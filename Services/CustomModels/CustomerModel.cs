@@ -7,9 +7,9 @@ namespace Services.CustomModels
 {
     public class CustomerModel: ICustomModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string AccountNumber { get; set; }
-        public int? PersonId { get; set; }
+        public string PersonId { get; set; }
         
     }
 }

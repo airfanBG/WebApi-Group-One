@@ -35,9 +35,9 @@
         
         [HttpDelete]
         [Authorize(Roles="Admin")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteUser(string id)
         {
-            if (id!=0)
+            if (!string.IsNullOrEmpty(id))
             {
                 var res = manager.DeleteUser(id);
                 if (res.Length == 0)

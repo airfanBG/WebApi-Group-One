@@ -8,6 +8,6 @@ namespace Services.CustomModels
     public class DepartmentModel: ICustomModel
     {
         public string DepartmentName { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

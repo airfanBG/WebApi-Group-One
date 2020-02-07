@@ -55,7 +55,7 @@ namespace Services.Implementations
             {
                 using (context)
                 {
-                    if (model.Id!=0)
+                    if (!string.IsNullOrEmpty(model.Id))
                     {
                         var getDepartment = this.context.Departments.SingleOrDefault(x => x.Id == model.Id);
                         if (getDepartment != null)
@@ -86,13 +86,13 @@ namespace Services.Implementations
                 throw new Exception(e.Message);
             }
         }
-        public string Delete(int id)
+        public string Delete(string id)
         {
             try
             {
                 using (context)
                 {
-                    if (id != 0)
+                    if (!string.IsNullOrEmpty(id))
                     {
                         var getDepartment = this.context.Departments.SingleOrDefault(x => x.Id == id);
                         if (getDepartment != null)
@@ -137,7 +137,7 @@ namespace Services.Implementations
             }
         }
 
-        public override DepartmentModel Get(int id)
+        public override DepartmentModel Get(string id)
         {
             try
             {

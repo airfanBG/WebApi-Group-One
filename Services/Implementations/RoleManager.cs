@@ -55,7 +55,7 @@
             }
         }
 
-        public override RoleModel Get(int id)
+        public override RoleModel Get(string id)
         {
             try
             {

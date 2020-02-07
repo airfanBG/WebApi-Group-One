@@ -55,7 +55,7 @@
                 throw new Exception(e.Message);
             }
         }
-        public string Delete(int id)
+        public string Delete(string id)
         {
             return Delete(new ProductModel() { Id = id });
         }
@@ -137,7 +137,7 @@
                 return photos;          
         }
 
-        public override ProductModel Get(int id)
+        public override ProductModel Get(string id)
         {
             try
             {

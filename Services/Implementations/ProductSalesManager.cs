@@ -9,13 +9,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class ProductSalesManager
     {
         private StoreDbContext context;
+       
         public ProductSalesManager(StoreDbContext data)
         {
             this.context = data;
+            
         }
         public List<ProductModel> GetMostSelledProducts(int top = 10)
         {
@@ -34,6 +37,39 @@
                 throw new Exception(e.Message);
             }
         }
+        public async Task AddProduct(string productId, int quantity,string userid)
+        {
+            
+            using (context)
+            {
+              await Task.Run(()=>  context.UserOrders.Add(new UserOrder() {UserId=userid,ProductId=productId,Quantity=quantity }));
+            }
+          
+        }
+        public async Task<int> GetUserOrdersCount(string id)
+        {
+            using (context)
+            {
+                return await Task.Run(() => context.UserOrders
+                .Where(x => x.UserId == id && !x.FinnishedDate.HasValue)
+                .Count());
+            }
+        }
+        public async Task<List<ProductSaleOrderModel>> GetUserOrders(string id)
+        {
+            using (context)
+            {
+                return await Task.Run(() => context.UserOrders
+                .Where(x => x.UserId == id && !x.FinnishedDate.HasValue)
+                .Select(x => new ProductSaleOrderModel()
+                {
+                    ProductId = x.ProductId,
+                    Quantity = x.Quantity,
+                    UserId = x.UserId
+                }).ToList());
+            }
+        }
+
         public string SaleProduct(ProductSaleOrderModel model)
         {
             try
@@ -53,7 +89,7 @@
                     saleOrder.DateOfSale = model.DateOfSale;
                     saleOrder.Product = getProduct;
 
-                    Customer customer = this.context.Customers.SingleOrDefault(x => x.PersonId == model.UserId);
+                    Customer customer = this.context.Customers.SingleOrDefault(x => x.UserId == model.UserId);
                     if (customer == null)
                     {
                         return Messages.NotExistingCustomer;

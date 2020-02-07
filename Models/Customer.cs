@@ -14,8 +14,8 @@
         [MaxLength(10)]
         [Required(ErrorMessage = "Account number is required!")]
         public string AccountNumber { get; set; }
-        public int? PersonId { get; set; }
-        public virtual User Person { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<SaleOrder> SaleOrders { get; set; }
         public virtual ICollection<EmployeeCustomers> EmployeeCustomers { get; set; }

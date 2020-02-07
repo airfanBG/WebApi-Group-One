@@ -26,9 +26,9 @@
         }
         [HttpGet]
         [Route("{id:int}")]
-        public IActionResult GetProduct(int id)
+        public IActionResult GetProduct(string id)
         {
-            if (id!=0)
+            if (!string.IsNullOrEmpty(id))
             {
                 var product = manager.Get(id);
                 if (product != null)
@@ -56,9 +56,9 @@
         }
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteProduct(int id)
+        public IActionResult DeleteProduct(string id)
         {
-            if (id!=0)
+            if (!string.IsNullOrEmpty(id))
             {
                 var res = manager.Delete(id);
                 if (res.Length != 0)

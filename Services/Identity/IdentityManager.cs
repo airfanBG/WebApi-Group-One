@@ -206,7 +206,7 @@
             }
         }
 
-        public string DeleteUser(int id)
+        public string DeleteUser(string id)
         {
             try
             {

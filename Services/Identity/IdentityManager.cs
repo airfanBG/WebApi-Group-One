@@ -43,7 +43,7 @@
         
             if (currentUser != null)
             {
-                var res = this.VerifyHashedPassword(currentUser.Password, model.Password);
+                var res = this.VerifyHashedPassword(currentUser.PasswordHash, model.Password);
                 User = currentUser;
 
                 return res;
@@ -141,7 +141,7 @@
 
                 User = MapperConfigurator.Mapper.Map<User>(model);
 
-                User.Password = HashPassword(model.Password);
+                User.PasswordHash = HashPassword(model.Password);
 
                 var userToken = new UserToken() { Token = token, User = User };
                 if (model.Roles!=null)
@@ -188,10 +188,10 @@
                     getUser.FirstName = model.FirstName;
                     getUser.LastName = model.LastName;
 
-                    var checkPasswordChange = VerifyHashedPassword(getUser.Password, model.Password);
+                    var checkPasswordChange = VerifyHashedPassword(getUser.PasswordHash, model.Password);
                     if (checkPasswordChange == false)
                     {
-                        getUser.Password = HashPassword(model.Password);
+                        getUser.PasswordHash = HashPassword(model.Password);
                     }
 
                     dbContext.Update(getUser);

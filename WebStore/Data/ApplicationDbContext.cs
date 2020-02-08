@@ -7,13 +7,13 @@ using Models;
 
 namespace WebStore.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-        public DbSet<Product> Products { get; set; }
+    //public class ApplicationDbContext : IdentityDbContext
+    //{
+    //    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    //        : base(options)
+    //    {
+    //    }
+    //    public DbSet<Product> Products { get; set; }
 
-    }
+    //}
 }

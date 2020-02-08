@@ -75,7 +75,6 @@ namespace WebStore
             services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, Role>>();
             services.AddScoped<Microsoft.AspNetCore.Identity.RoleManager<Role>>();
             services.AddScoped<UserManager<User>>();
-            services.AddScoped<UserManager<User>>();
             services.AddScoped<SignInManager<User>>();
             //services.AddScoped<RoleManager<Role>>();
             services.AddScoped<IRoleStore<Role>,RoleStore<Role>>();

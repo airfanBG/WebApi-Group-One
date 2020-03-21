@@ -50,8 +50,7 @@ namespace WebStore
             })
                 .AddAuthentication()
                 .AddCookie();
-            
-            
+           
 
             services.AddScoped<ProductManager>();
             services.AddScoped<ProductSalesManager>();

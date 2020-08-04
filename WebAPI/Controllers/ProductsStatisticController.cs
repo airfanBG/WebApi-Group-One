@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services.Implementations;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -12,7 +8,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsStatisticController : ControllerBase
     {
-        private ProductStatisticManager manager;
+        private readonly ProductStatisticManager manager;
         public ProductsStatisticController(ProductStatisticManager manager)
         {
             this.manager = manager;
@@ -20,10 +16,10 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("top-selled")]
-        public IActionResult GetTopSelled(DateTime from,DateTime to)
+        public IActionResult GetTopSelled(DateTime from, DateTime to)
         {
             var res = manager.GetBestSelledForPeriod(from, to);
-            if (res.Count>0)
+            if (res.Count > 0)
             {
                 return Ok(res);
             }

@@ -11,7 +11,7 @@
     [Authorize(Roles = "Admin, User")]
     public class ProductsController : ControllerBase
     {
-        private ProductManager manager;
+        private readonly ProductManager manager;
         public ProductsController(ProductManager productManager)
         {
             this.manager = productManager;

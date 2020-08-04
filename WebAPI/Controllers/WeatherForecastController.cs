@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.IO;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     //[Authorize]
-    
+
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -41,9 +39,9 @@ namespace WebAPI.Controllers
         [Route("pdf")]
         public IActionResult GetPdf()
         {
-         
-            var filecontent= System.IO.File.ReadAllBytesAsync($"..\\test.pdf").Result;
-            return File(filecontent,"application/pdf");
+
+            var filecontent = System.IO.File.ReadAllBytesAsync($"..\\test.pdf").Result;
+            return File(filecontent, "application/pdf");
         }
     }
 }

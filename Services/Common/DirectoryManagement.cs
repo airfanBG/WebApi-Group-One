@@ -19,8 +19,7 @@ namespace Services.Common
             var path = configuration.GetSection("Path").Value;
             var folder = configuration.GetSection("Folder").Value;
 
-            CurrentPath=Path.Combine(path, folder);
-           
+            CurrentPath=Path.Combine(path, folder);           
 
             bool checkDirectory=Directory.Exists(CurrentPath);
             if (checkDirectory==false)

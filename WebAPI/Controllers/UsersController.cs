@@ -8,7 +8,7 @@
 
     [Route("api/users")]
     [ApiController]
-    
+
     public class UsersController : ControllerBase
     {
         private readonly IIdentityManager manager;
@@ -32,24 +32,20 @@
             }
             return BadRequest(ModelInfo.TurnModelToString(model));
         }
-        
+
         [HttpDelete]
-        [Authorize(Roles="Admin")]
-        public IActionResult DeleteUser(string id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteUser(int id)
         {
-            if (!string.IsNullOrEmpty(id))
+            var res = manager.DeleteUser(id);
+            if (res.Length == 0)
             {
-                var res = manager.DeleteUser(id);
-                if (res.Length == 0)
-                {
-                    return Ok();
-                }
+                return Ok();
             }
-            
             return BadRequest();
         }
         [HttpPut]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditUser([FromBody]PersonModel model)
         {
             var res = manager.EditUser(model);

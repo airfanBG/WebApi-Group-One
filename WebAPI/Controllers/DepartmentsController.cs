@@ -8,10 +8,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin, User, Seller")]
+    [Authorize(Roles = "Admin, User, Seller")]
     public class DepartmentsController : ControllerBase
     {
-        private DepartmentManager manager;
+        private readonly DepartmentManager manager;
 
         public DepartmentsController(DepartmentManager manager)
         {
@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         // GET: api/Departments
         [HttpGet]
         [Route("all")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             var res = this.manager.AllDepartments;
@@ -29,15 +29,12 @@ namespace WebAPI.Controllers
 
         // GET: api/Departments/5
         [HttpGet("{id:int}")]
-        public IActionResult Get(string id)
+        public IActionResult Get(int id)
         {
-            if (!string.IsNullOrEmpty(id))
+            var res = this.manager.Get(id);
+            if (res != null)
             {
-                var res = this.manager.Get(id);
-                if (res != null)
-                {
-                    return Ok(res);
-                }
+                return Ok(res);
             }
             return NotFound();
         }
@@ -46,15 +43,15 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] DepartmentModel model)
         {
-            var res=this.manager.Add(model);
-            if (res.Length==0)
+            var res = this.manager.Add(model);
+            if (res.Length == 0)
             {
                 return Created("api/Departments", model);
             }
             return BadRequest(res);
         }
 
-        
+
         [HttpPut]
         public IActionResult Put([FromBody] DepartmentModel model)
         {
@@ -68,17 +65,14 @@ namespace WebAPI.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
-            if (!string.IsNullOrEmpty(id))
+            var res = this.manager.Delete(id);
+            if (res.Length == 0)
             {
-                var res = this.manager.Delete(id);
-                if (res.Length == 0)
-                {
-                    return Ok();
-                }
+                return Ok();
             }
-            return BadRequest();
+            return BadRequest(res);
         }
     }
 }

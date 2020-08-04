@@ -5,19 +5,17 @@ namespace WebAPI
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using Services.CustomModels;
     using Services.Identity;
     using Services.Implementations;
     using Services.Interfaces;
     using System;
     using System.Text;
-    using Microsoft.OpenApi.Models;
-    using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
     {
@@ -45,12 +43,10 @@ namespace WebAPI
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
-                   
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = false,
-                        
                         //ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
@@ -59,15 +55,31 @@ namespace WebAPI
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Store Web API",
+                    Version = "v1",
+                    Description = "A simple example ASP.NET Core Web API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Daniel Damyanov",
+                        Email = "damyanovdaniel@yahoo.com",
+                        Url = new Uri("https://github.com/airfanBG"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Free",
+                        Url = new Uri("https://github.com/airfanBG/WebApi-Group-One"),
+                    }
+                });
             });
 
             services.AddAuthorization();
 
-            services.AddScoped<StoreDbContext>();
+
+
+            services.AddScoped<StoreDbContext, StoreDbContext>();
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<ProductManager>();
             services.AddScoped<DepartmentManager>();
@@ -81,16 +93,16 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-          
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-           
+
             app.UseHttpsRedirection();
             app.UseSwagger();
 
-      
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
@@ -101,7 +113,7 @@ namespace WebAPI
                 endpoints.MapControllers();
             });
 
-            
+
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿using Services.Common;
+﻿using Data;
+using Models;
+using Services.Common;
 using Services.CustomModels;
 using Services.Implementations;
+using Services.Repositories;
+using System.Linq;
 
 namespace Test
 {
@@ -23,9 +27,10 @@ namespace Test
             // ProductStatisticManager psm = new ProductStatisticManager(new Data.StoreDbContext());
             //var res= psm.GetRevenuesByPeriod(new System.DateTime(2019, 01, 01), new System.DateTime(2019, 12, 12));
 
-            ProductManager pm = new ProductManager();
-            pm.Add(new ProductModel() { Name = "test", ProductPrice = 1, Description = "test", CurrentQuantity = 1 });
-            
+            //ProductManager pm = new ProductManager();
+            //pm.Add(new ProductModel() { Name = "test", ProductPrice = 1, Description = "test", CurrentQuantity = 1 });
+
+           
         }
 
     }

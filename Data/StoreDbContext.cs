@@ -81,7 +81,7 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
-            optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
            
         }
         public override int SaveChanges()

@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Models;
+    using Models.BaseModels;
     using Models.Interfaces;
     using System;
     using System.IO;
@@ -30,20 +31,24 @@
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.Entity<Customer>().HasOne(x => x.User);
+    //        modelBuilder
+    //.Entity<Product>()
+    //.Property(e => e.Id)
+    //.ValueGeneratedOnAdd();
+            // modelBuilder.Entity<Customer>().HasOne(x => x.User);
 
             //modelBuilder.Entity<EmployeeCustomers>().HasOne(x => x.Employee).WithMany(x => x.EmployeeCustomers).OnDelete(DeleteBehavior.Restrict);
             // modelBuilder.Entity<EmployeeCustomers>().HasOne(x => x.Customer).WithMany(x => x.EmployeeCustomers).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<User>().HasData(new User() { CreatedAt = DateTime.Now, Email = "airfan@das.vf", FirstName = "one", LastName = "one", Password = "1234", Id = "1" },
-                new User() { CreatedAt = DateTime.Now, Email = "minka@das.vf", FirstName = "Minka", LastName = "Minkova", Password = "1234", Id = "2" },
-                new User() { CreatedAt = DateTime.Now, Email = "ginka@das.vf", FirstName = "Ginka", LastName = "Ginkova", Password = "1234", Id = "3" });
+            modelBuilder.Entity<User>().HasData(new User() { CreatedAt = DateTime.Now, Email = "airfan@das.vf", FirstName = "one", LastName = "one", PasswordHash = "1234", Id = "1" },
+                new User() { CreatedAt = DateTime.Now, Email = "minka@das.vf", FirstName = "Minka", LastName = "Minkova", PasswordHash = "1234", Id = "2" },
+                new User() { CreatedAt = DateTime.Now, Email = "ginka@das.vf", FirstName = "Ginka", LastName = "Ginkova", PasswordHash = "1234", Id = "3" });
             modelBuilder.Entity<Product>().HasData(
                 new Product() { Id = "1", CreatedAt = DateTime.Now, ProductName = "T-shirt", CurrentQuantity = 100, Description = "Daily", ProductPrice = 10 },
                 new Product() { Id = "2", CreatedAt = DateTime.Now, ProductName = "Jacket", CurrentQuantity = 50, Description = "Daily", ProductPrice = 150 },
                 new Product() { Id = "3", CreatedAt = DateTime.Now, ProductName = "Shoes", CurrentQuantity = 200, Description = "Daily", ProductPrice = 125 },
                 new Product() { Id = "4",CreatedAt=DateTime.Now, ProductName = "Socks", CurrentQuantity = 1000, Description = "Daily", ProductPrice = 2 });
 
-            
+           
             modelBuilder.Entity<Department>().HasData(
                 new Department() { Id = "1", CreatedAt = DateTime.Now, DepartmentName = "Sells" },
                 new Department() { Id = "2", CreatedAt = DateTime.Now, DepartmentName = "Finance" },
@@ -76,7 +81,7 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
-            optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
            
         }
         public override int SaveChanges()

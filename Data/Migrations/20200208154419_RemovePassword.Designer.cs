@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200208154419_RemovePassword")]
+    partial class RemovePassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +155,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Customer", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountNumber")
@@ -199,7 +200,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Department", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -224,19 +224,19 @@ namespace Data.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 335, DateTimeKind.Local).AddTicks(2846),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(8221),
                             DepartmentName = "Sells"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 335, DateTimeKind.Local).AddTicks(3405),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(9115),
                             DepartmentName = "Finance"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 335, DateTimeKind.Local).AddTicks(3430),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(9145),
                             DepartmentName = "IT"
                         });
                 });
@@ -244,7 +244,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Employee", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("BankAccount")
@@ -289,7 +288,7 @@ namespace Data.Migrations
                         {
                             Id = "1",
                             BankAccount = 100000,
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 335, DateTimeKind.Local).AddTicks(7574),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 675, DateTimeKind.Local).AddTicks(4585),
                             DepartmentId = 3,
                             EmployeeNumber = "EA0011",
                             Telephone = "1231231",
@@ -300,7 +299,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.EmployeeCustomers", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -330,7 +328,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(3663),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(9232),
                             CustomerId = "1",
                             EmployeeId = "1"
                         });
@@ -339,7 +337,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Photo", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -373,7 +370,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Product", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -408,7 +404,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 334, DateTimeKind.Local).AddTicks(6730),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 673, DateTimeKind.Local).AddTicks(5386),
                             CurrentQuantity = 100,
                             Description = "Daily",
                             ProductName = "T-shirt",
@@ -417,7 +413,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "2",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 334, DateTimeKind.Local).AddTicks(9535),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(2934),
                             CurrentQuantity = 50,
                             Description = "Daily",
                             ProductName = "Jacket",
@@ -426,7 +422,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "3",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 334, DateTimeKind.Local).AddTicks(9597),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(3068),
                             CurrentQuantity = 200,
                             Description = "Daily",
                             ProductName = "Shoes",
@@ -435,7 +431,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "4",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 334, DateTimeKind.Local).AddTicks(9604),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 674, DateTimeKind.Local).AddTicks(3078),
                             CurrentQuantity = 1000,
                             Description = "Daily",
                             ProductName = "Socks",
@@ -479,15 +475,15 @@ namespace Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "fc3c4158-b6b4-4b8d-b9b6-4f5381e30292",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 336, DateTimeKind.Local).AddTicks(977),
+                            ConcurrencyStamp = "d69523c4-2b4f-4a60-8c4e-911c65bd9e12",
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 675, DateTimeKind.Local).AddTicks(7614),
                             RoleName = "Admin"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "b57e61c6-88cf-47b5-b899-cf4144cdd4b3",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 336, DateTimeKind.Local).AddTicks(2346),
+                            ConcurrencyStamp = "2d9786b8-ab7a-4c8a-9851-62d891511683",
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 675, DateTimeKind.Local).AddTicks(8794),
                             RoleName = "User"
                         });
                 });
@@ -495,7 +491,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.SaleOrder", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -537,7 +532,7 @@ namespace Data.Migrations
                             Id = "1",
                             CreatedAt = new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "2",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 336, DateTimeKind.Local).AddTicks(8747),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(5315),
                             Note = "",
                             ProductId = "1",
                             Quantity = 5
@@ -545,9 +540,9 @@ namespace Data.Migrations
                         new
                         {
                             Id = "2",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1872),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7438),
                             CustomerId = "2",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1817),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7393),
                             Note = "",
                             ProductId = "2",
                             Quantity = 15
@@ -557,7 +552,7 @@ namespace Data.Migrations
                             Id = "3",
                             CreatedAt = new DateTime(2019, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "1",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1878),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7443),
                             Note = "",
                             ProductId = "3",
                             Quantity = 3
@@ -567,7 +562,7 @@ namespace Data.Migrations
                             Id = "4",
                             CreatedAt = new DateTime(2019, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "1",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1883),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7448),
                             Note = "",
                             ProductId = "4",
                             Quantity = 8
@@ -577,7 +572,7 @@ namespace Data.Migrations
                             Id = "5",
                             CreatedAt = new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "1",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1887),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7453),
                             Note = "",
                             ProductId = "1",
                             Quantity = 10
@@ -587,7 +582,7 @@ namespace Data.Migrations
                             Id = "6",
                             CreatedAt = new DateTime(2019, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "2",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1892),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7458),
                             Note = "",
                             ProductId = "4",
                             Quantity = 7
@@ -597,7 +592,7 @@ namespace Data.Migrations
                             Id = "7",
                             CreatedAt = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = "1",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1896),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7463),
                             Note = "",
                             ProductId = "2",
                             Quantity = 1
@@ -605,9 +600,9 @@ namespace Data.Migrations
                         new
                         {
                             Id = "8",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1903),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7471),
                             CustomerId = "2",
-                            DateOfSale = new DateTime(2020, 2, 16, 23, 28, 50, 337, DateTimeKind.Local).AddTicks(1900),
+                            DateOfSale = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(7467),
                             Note = "",
                             ProductId = "2",
                             Quantity = 11
@@ -702,8 +697,8 @@ namespace Data.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41ee5855-1d8b-4b8c-bfad-0a97d3a67738",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 328, DateTimeKind.Local).AddTicks(9839),
+                            ConcurrencyStamp = "c500c609-9be8-4d9d-8c2f-096b7f69c0eb",
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 668, DateTimeKind.Local).AddTicks(776),
                             Email = "airfan@das.vf",
                             EmailConfirmed = false,
                             FirstName = "one",
@@ -711,15 +706,15 @@ namespace Data.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2aa828a0-0fe4-434f-b3e3-ddd7dd8bfced",
+                            SecurityStamp = "ec1f627f-8fe1-4f30-8efe-d3b841c7dec8",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d642a01c-e048-4d17-872b-808ba929992b",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 332, DateTimeKind.Local).AddTicks(6859),
+                            ConcurrencyStamp = "08d7e0b6-f0e4-4867-9703-ab9469b4a769",
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 671, DateTimeKind.Local).AddTicks(5169),
                             Email = "minka@das.vf",
                             EmailConfirmed = false,
                             FirstName = "Minka",
@@ -727,15 +722,15 @@ namespace Data.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "acbbd39f-90cc-4e0f-a773-dfe29d38f7d9",
+                            SecurityStamp = "a99fdfdb-8444-42c6-b7e4-9ee5e7c853cf",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e0837175-dad5-43c9-949d-9afd80412d02",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 332, DateTimeKind.Local).AddTicks(6956),
+                            ConcurrencyStamp = "3ddcc9a1-7995-4886-9bbe-0d83a6aa2520",
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 671, DateTimeKind.Local).AddTicks(5278),
                             Email = "ginka@das.vf",
                             EmailConfirmed = false,
                             FirstName = "Ginka",
@@ -743,7 +738,7 @@ namespace Data.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "33a29d93-6849-44fe-bfba-2d9c06fabf25",
+                            SecurityStamp = "58f209a0-8548-4e4d-b6a9-acb026820a4f",
                             TwoFactorEnabled = false
                         });
                 });
@@ -751,7 +746,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.UserOrder", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -785,7 +779,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.UserRoles", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -815,14 +808,14 @@ namespace Data.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 336, DateTimeKind.Local).AddTicks(3188),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 675, DateTimeKind.Local).AddTicks(9625),
                             RoleId = "1",
                             UserId = "1"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedAt = new DateTime(2020, 2, 16, 23, 28, 50, 336, DateTimeKind.Local).AddTicks(4191),
+                            CreatedAt = new DateTime(2020, 2, 8, 17, 44, 18, 676, DateTimeKind.Local).AddTicks(672),
                             RoleId = "2",
                             UserId = "2"
                         });
@@ -831,7 +824,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.UserToken", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")

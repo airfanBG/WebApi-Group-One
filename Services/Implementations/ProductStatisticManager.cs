@@ -6,6 +6,7 @@
     using Services.Common;
     using Services.CustomModels;
     using Services.CustomModels.MapperSettings;
+    using Services.Repositories;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -30,6 +31,7 @@
             {
                 using (Context)
                 {
+                   var res= Context.Products.Include(x => x.SalesOrders).Where(x => x.CreatedAt.Date >= from.Date && x.CreatedAt.Date <= to.Date).ToList();
                     //this type of query works only in EF Core 3.0v. More info: https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-3.0/breaking-changes#linq-queries-are-no-longer-evaluated-on-the-client https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-0-preview-9-and-entity-framework-6-3-preview-9/
                     var all =
                         Context.SalesOrders

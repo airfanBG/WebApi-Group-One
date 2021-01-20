@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<Models.User> SignInManager
+@inject UserManager<Models.User> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
@@ -13,9 +13,7 @@
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
         </form>
     </li>
-    <li id="ordersCount" class="fa fa-shopping-cart">
-        @await Component.InvokeAsync("Orders")
-    </li>
+    
 }
 else
 {

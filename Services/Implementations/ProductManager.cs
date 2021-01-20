@@ -37,11 +37,14 @@
                     Product product = MapperConfigurator.Mapper.Map<Product>(model);
                     List<Photo> photos=null;
 
-                    if (model.Files.Count > 0)
+                    if (model.Files!=null)
                     {
-                        photos = Photos(model.Files);
-                        product.Photos = photos;
-                    }   
+                        if (model.Files.Count > 0)
+                        {
+                            photos = Photos(model.Files);
+                            product.Photos = photos;
+                        }
+                    }                  
                    
 
                     this.context.Products.Add(product);

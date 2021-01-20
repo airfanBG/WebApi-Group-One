@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Models;
+    using Models.BaseModels;
     using Models.Interfaces;
     using System;
     using System.IO;
@@ -30,7 +31,11 @@
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.Entity<Customer>().HasOne(x => x.User);
+    //        modelBuilder
+    //.Entity<Product>()
+    //.Property(e => e.Id)
+    //.ValueGeneratedOnAdd();
+            // modelBuilder.Entity<Customer>().HasOne(x => x.User);
 
             //modelBuilder.Entity<EmployeeCustomers>().HasOne(x => x.Employee).WithMany(x => x.EmployeeCustomers).OnDelete(DeleteBehavior.Restrict);
             // modelBuilder.Entity<EmployeeCustomers>().HasOne(x => x.Customer).WithMany(x => x.EmployeeCustomers).OnDelete(DeleteBehavior.Restrict);
@@ -43,7 +48,7 @@
                 new Product() { Id = "3", CreatedAt = DateTime.Now, ProductName = "Shoes", CurrentQuantity = 200, Description = "Daily", ProductPrice = 125 },
                 new Product() { Id = "4",CreatedAt=DateTime.Now, ProductName = "Socks", CurrentQuantity = 1000, Description = "Daily", ProductPrice = 2 });
 
-            
+           
             modelBuilder.Entity<Department>().HasData(
                 new Department() { Id = "1", CreatedAt = DateTime.Now, DepartmentName = "Sells" },
                 new Department() { Id = "2", CreatedAt = DateTime.Now, DepartmentName = "Finance" },
@@ -76,7 +81,7 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
-            optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
            
         }
         public override int SaveChanges()
